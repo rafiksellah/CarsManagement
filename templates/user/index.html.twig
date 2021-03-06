@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste Utilisateur{% endblock %}
+
+{% block body %}
+    <h1>Liste Utilisateur</h1>
+<div class="container-fluid">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Password</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                <td>*****</td>
+                <td>
+                    <a class="btn btn-success" href="{{ path('user_show', {'id': user.id}) }}">Afficher</a>
+                    <a class="btn btn-primary" href="{{ path('user_edit', {'id': user.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <a class="btn btn-primary" href="{{ path('user_new') }}" >Nouvel Utilisateur </a> 
+</div>
+{% endblock %}
