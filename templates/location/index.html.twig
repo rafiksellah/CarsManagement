@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Location {% endblock %}
+
+{% block body %}
+    <h1>Liste Location </h1>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>PlateformeLocation</th>
+                <th>ParcStationnement</th>
+                <th>DateDebut</th>
+                <th>DateFin</th>
+                <th>Remarque</th>
+                <th>Prix</th>
+                <th>Service</th>
+                <th>Ajustement</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for location in locations %}
+            <tr>
+                <td>{{ location.id }}</td>
+                <td>{{ location.plateformeLocation }}</td>
+                <td>{{ location.parcStationnement }}</td>
+                <td>{{ location.dateDebut ? location.dateDebut|date('Y-m-d') : '' }}</td>
+                <td>{{ location.dateFin ? location.dateFin|date('Y-m-d') : '' }}</td>
+                <td>{{ location.remarque }}</td>
+                <td>{{ location.prix }}</td>
+                <td>{{ location.service }}</td>
+                <td>{{ location.ajustement }}</td>
+                <td>
+                    <a class="btn btn-success" href="{{ path('location_show', {'id': location.id}) }}">show</a>
+                    <a class="btn btn-info" href="{{ path('location_edit', {'id': location.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary" href="{{ path('location_new') }}">Ajouter Location</a>
+{% endblock %}

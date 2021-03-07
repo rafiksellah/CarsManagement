@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Depenses{% endblock %}
+
+{% block body %}
+    <h1>Depenses</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ depense.id }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ depense.date ? depense.date|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>NatureLibelle</th>
+                <td>{{ depense.natureLibelle }}</td>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ depense.prix }}</td>
+            </tr>
+            <tr>
+                <th>Kilometrage</th>
+                <td>{{ depense.kilometrage }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="btn btn-info"  href="{{ path('depenses_index') }}">Retour</a>
+
+    <a class="btn btn-success"  href="{{ path('depenses_edit', {'id': depense.id}) }}">edit</a>
+    <div class="col-md-1">
+    {{ include('depenses/_delete_form.html.twig') }}
+    </div>
+{% endblock %}

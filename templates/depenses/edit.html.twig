@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier Depenses{% endblock %}
+
+{% block body %}
+    <h1>Modifier Depenses</h1>
+ 
+        {{ include('depenses/_form.html.twig', {'button_label': 'Update'}) }}
+    <div class="col-md-1">
+    <a class="btn btn-info" href="{{ path('depenses_index') }}">Retour</a>
+    </div>
+    <div class="col-md-1">
+        {{ include('depenses/_delete_form.html.twig') }}
+    </div>
+{% endblock %}

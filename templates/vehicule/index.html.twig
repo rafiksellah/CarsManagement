@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vehicule index{% endblock %}
+
+{% block body %}
+    <h1>Liste Vehicule</h1>
+<div class="container">
+    <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>ModeFinancement</th>
+                <th>ParcStationnementVille</th>
+                <th>Model</th>
+                <th>Immatriculation</th>
+                <th>DateImmatriculation</th>
+                <th>NombrePlace</th>
+                <th>NombrePorte</th>
+                <th>PhaseFinition</th>
+                <th>Energie</th>
+                <th>Couleur</th>
+                <th>DateDebutContrat</th>
+                <th>Apport</th>
+                <th>DureeFinancement</th>
+                <th>LoyerMensuel</th>
+                <th>DataAchat</th>
+                <th>KilometrageAchat</th>
+                <th>Prix</th>
+                <th>Options</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for vehicule in vehicules %}
+            <tr>
+                <td>{{ vehicule.id }}</td>
+                <td>{{ vehicule.modeFinancement }}</td>
+                <td>{{ vehicule.parcStationnementVille }}</td>
+                <td>{{ vehicule.model }}</td>
+                <td>{{ vehicule.immatriculation }}</td>
+                <td>{{ vehicule.dateImmatriculation ? vehicule.dateImmatriculation|date('Y-m-d') : '' }}</td>
+                <td>{{ vehicule.nombrePlace }}</td>
+                <td>{{ vehicule.nombrePorte }}</td>
+                <td>{{ vehicule.phaseFinition }}</td>
+                <td>{{ vehicule.energie }}</td>
+                <td>{{ vehicule.couleur }}</td>
+                <td>{{ vehicule.dateDebutContrat ? vehicule.dateDebutContrat|date('Y-m-d') : '' }}</td>
+                <td>{{ vehicule.apport }}</td>
+                <td>{{ vehicule.dureeFinancement }}</td>
+                <td>{{ vehicule.loyerMensuel }}</td>
+                <td>{{ vehicule.dataAchat ? vehicule.dataAchat|date('Y-m-d') : '' }}</td>
+                <td>{{ vehicule.kilometrageAchat }}</td>
+                <td>{{ vehicule.prix }}</td>
+                <td>{{ vehicule.options }}</td>
+                <td>
+                    <a href="{{ path('vehicule_show', {'id': vehicule.id}) }}">show</a>
+                    <a href="{{ path('vehicule_edit', {'id': vehicule.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="20">Aucun Vehicule </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-info" href="{{ path('vehicule_new') }}">Ajouter un Vehicule</a>
+    </div>
+{% endblock %}
