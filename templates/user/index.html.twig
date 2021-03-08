@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Liste Utilisateur</h1>
 <div class="container-fluid">
-    <table class="table table-striped table-bordered" id="myTable">
+    <table id="dataTable" class="table table-striped table-bordered" id="myTable">
         <thead>
             <tr>
                 <th>Id</th>
@@ -26,10 +26,6 @@
                     <a class="btn btn-success" href="{{ path('user_show', {'id': user.id}) }}">Afficher</a>
                     <a class="btn btn-primary" href="{{ path('user_edit', {'id': user.id}) }}">Modifier</a>
                 </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">Aucun Utilisateur trouvé</td>
             </tr>
         {% endfor %}
         </tbody>
