@@ -4,6 +4,7 @@ namespace App\Service;
 
 class ApiHelper
 {
+	public $invoice_ids = array();
 
     public function apiConnexion($url)
     {
@@ -33,17 +34,13 @@ class ApiHelper
     public function getInvoiceIds($invoices)
     {
 		foreach ($invoices['data'] as $invoice) {
-			$invoice_ids[] = $invoice['id'];
+			$this->invoice_ids[] = $invoice['id'];
 		}
 		if ($invoices['links']['next'] != NULL ) {
 			$new_invoices = $this->apiConnexion($invoices['links']['next']);
 			$this->getInvoiceIds($new_invoices);
 		}else{
-			if (isset($invoice_ids)) {
-				return $invoice_ids;
-			}else{
-				return array();
-			}
+			return $this->invoice_ids;
 		}
     }
 
