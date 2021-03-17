@@ -17,20 +17,15 @@ class VehiculeType extends AbstractType
     const CHOIX2 = 'GPS';
     const CHOIX3 = 'limiteur de vitesse';
     const CHOIX4 ='vitres électriques';
+    const CHOIX5 ='régulateur de vitesse';
+    const CHOIX6 ='Bluetooth';
+    const CHOIX7 ='USB';
+    const CHOIX8 ='AUX';
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('modeFinancement', ChoiceType::class, [
-                'required' => true,
-                'multiple' => false,
-                'expanded' => false,
-                'choices'  => [
-                'ouicar' => 'Ouicar',
-                'autre' => 'Autre',
-                ],
-            ])     
-            ->add('parcStationnementVille', ChoiceType::class, [
+             ->add('parcStationnementVille', ChoiceType::class, [
                 'required' => true,
                 'multiple' => false,
                 'expanded' => false,
@@ -39,53 +34,36 @@ class VehiculeType extends AbstractType
                 'Bastia' => 'Bastia',
                 ],
             ])
-            ->add('model', ChoiceType::class, [
-                'required' => true,
-                'multiple' => false,
-                'expanded' => false,
-                'choices'  => [
-                'Peaugeat' => 'Peaugeat',
-                'Renault' => 'Renault',
-                'Citroene' => 'Citroene',
-                ],
-            ])
+            ->add('mark')
+            ->add('model')
             ->add('immatriculation')
             ->add('dateImmatriculation')
-            ->add('nombrePlace')
-            ->add('nombrePorte')
-            ->add('phaseFinition', ChoiceType::class, [
+            ->add('nombrePlace', ChoiceType::class, [
                 'required' => true,
                 'multiple' => false,
                 'expanded' => false,
-                'choices'  => [
-                'Zen' => 'Zen',
-                'Autre' => 'Autre',
-                ],
+                'choices'  => ['1' => '1','2' => '2','3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9', '10' => '10'],
             ])
+            ->add('nombrePorte', ChoiceType::class, [
+                'required' => true,
+                'multiple' => false,
+                'expanded' => false,
+                'choices'  => ['1' => '1','2' => '2','3' => '3', '4' => '4', '5' => '5'],
+            ])
+            ->add('phaseFinition')
             ->add('energie', ChoiceType::class, [
                 'required' => true,
                 'multiple' => false,
                 'expanded' => false,
                 'choices'  => [
-                'Diesel' => 'Diesel',
                 'Essence' => 'Essence',
+                'Diesel' => 'Diesel',
+                'Electrique' => 'Electrique',
                 'Hybride' => 'Hybride',
+                'GPL' => 'GPL',
                 ],
             ])
-            ->add('couleur', ChoiceType::class, [
-                'required' => true,
-                'multiple' => false,
-                'expanded' => false,
-                'choices'  => [
-                'Blanche' => 'Blanche',
-                'Noir' => 'Noir',
-                'Grise' => 'Grise',
-                ],
-            ])
-            ->add('dateDebutContrat')
-            ->add('apport')
-            ->add('dureeFinancement')
-            ->add('loyerMensuel')
+            ->add('couleur')
             ->add('dataAchat')
             ->add('kilometrageAchat')
             ->add('prix')
@@ -95,17 +73,18 @@ class VehiculeType extends AbstractType
                     'GPS' => self::CHOIX2,
                     'limiteur de vitesse' => self::CHOIX3,
                     'vitres électriques'=>self::CHOIX4,
+                    'régulateur de vitesse'=>self::CHOIX5,
+                    'Bluetooth'=>self::CHOIX6,
+                    'USB'=>self::CHOIX7,
+                    'AUX'=>self::CHOIX8,
                     ],
                 'expanded'  => true,
                 'multiple'  => true,
                 'mapped'  => false,
             ])
-    
            ;
-                
-        
-        
     }
+
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

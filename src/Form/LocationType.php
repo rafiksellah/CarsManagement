@@ -19,8 +19,8 @@ class LocationType extends AbstractType
                 'multiple' => false,
                 'expanded' => false,
                 'choices'  => [
+                'Getaround' => 'Getaround',
                 'Ouicar' => 'Ouicar',
-                'Autres' => 'Autres',
                 ],
             ])
             ->add('parcStationnement', ChoiceType::class, [
@@ -36,8 +36,7 @@ class LocationType extends AbstractType
             ->add('dateFin')
             ->add('remarque')
             ->add('prix')
-            ->add('service')
-            ->add('ajustement')
+            ->add('idLocationGetaround')
             ->add('idVehicule')
         ;
     }

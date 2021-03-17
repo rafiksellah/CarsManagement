@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Import Location{% endblock %}
+
+{% block body %}
+
+{% if locations %}
+	<form method="post" action="">
+		<table class="table table-bordered text-center">
+			<thead>
+				<th>Id Getaround</th>
+				<th>Plateforme location</th>
+				<th>Parc stationnement</th>
+				<th>Date debut</th>
+				<th>Date fin</th>
+				<th>Prix</th>
+				<th>Vehicule</th>
+				<th>Commentaire</th>
+			</thead>
+			<tbody>
+				{% for location in locations %}
+					<tr>
+						<td>
+							<input class="form-control" type="hidden" value="{{location.id }}" name="location[{{location.id}}][id]">
+							{{location.id }}
+						</td>
+						<td>
+							<input class="form-control" type="hidden" value="{{location.plateformeLocation }}" name="location[{{location.id}}][plateformeLocation]">
+							{{location.plateformeLocation }}
+						</td>
+						<td>
+							<input class="form-control" type="hidden" value="{{location.parcStationnementVille }}" name="location[{{location.id}}][parcStationnementVille]">
+							{{location.parcStationnementVille }}
+						</td>
+						<td>
+							<input class="form-control" type="hidden" value="{{location.start_date|date('Y-m-d') }}" name="location[{{location.id}}][start_date]">
+							{{location.start_date|date('Y-m-d') }}
+						</td>
+						<td>
+							<input class="form-control" type="hidden" value="{{location.end_date|date('Y-m-d') }}" name="location[{{location.id}}][end_date]">
+							{{location.end_date|date('Y-m-d') }}
+						</td>
+						<td>
+							<input class="form-control" type="hidden" value="{{location.price }}" name="location[{{location.id}}][price]">
+							{{location.price }} €
+						</td>
+						<td>
+							<input type="hidden" name="location[{{location.id}}][immatriculation]" value="{{location.immatriculation }}">
+							{{location.model }} - {{location.immatriculation }}
+						</td>
+						<td>
+							<textarea class="form-control" type="text" name="location[{{location.id}}][remarque]"></textarea>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<button type="submit" class="btn btn-primary float-right">Sauvegarder</button>
+	</form>
+{% else %}
+	<p>Aucune location à importer</p>	
+{% endif %}
+
+<br><br><br>
+
+
+
+{% endblock %}

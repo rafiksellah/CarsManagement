@@ -54,14 +54,10 @@ class Location
     private $prix;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=0)
+     * @ORM\Column(type="integer", nullable=true)
      */
-    private $service;
+    private $idLocationGetaround;
 
-    /**
-     * @ORM\Column(type="decimal", precision=10, scale=0, nullable=true)
-     */
-    private $ajustement;
 
     public function getId(): ?int
     {
@@ -152,26 +148,14 @@ class Location
         return $this;
     }
 
-    public function getService(): ?string
+    public function getIdLocationGetaround(): ?int
     {
-        return $this->service;
+        return $this->idLocationGetaround;
     }
 
-    public function setService(string $service): self
+    public function setIdLocationGetaround(?int $idLocationGetaround): self
     {
-        $this->service = $service;
-
-        return $this;
-    }
-
-    public function getAjustement(): ?string
-    {
-        return $this->ajustement;
-    }
-
-    public function setAjustement(?string $ajustement): self
-    {
-        $this->ajustement = $ajustement;
+        $this->idLocationGetaround = $idLocationGetaround;
 
         return $this;
     }

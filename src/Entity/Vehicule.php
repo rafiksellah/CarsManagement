@@ -20,11 +20,6 @@ class Vehicule
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $modeFinancement;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $parcStationnementVille;
@@ -69,25 +64,6 @@ class Vehicule
      */
     private $couleur;
 
-    /**
-     * @ORM\Column(type="date")
-     */
-    private $dateDebutContrat;
-
-    /**
-     * @ORM\Column(type="decimal", precision=10, scale=0, nullable=true)
-     */
-    private $apport;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $dureeFinancement;
-
-    /**
-     * @ORM\Column(type="decimal", precision=10, scale=0, nullable=true)
-     */
-    private $loyerMensuel;
 
     /**
      * @ORM\Column(type="date")
@@ -119,6 +95,22 @@ class Vehicule
      */
     private $depenses;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $mark;
+
+    /**
+     * @ORM\Column(type="smallint")
+     */
+    private $status;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $idVehiculeGetaround;
+
+
     public function __construct()
     {
         $this->locations = new ArrayCollection();
@@ -130,17 +122,6 @@ class Vehicule
         return $this->id;
     }
 
-    public function getModeFinancement(): ?string
-    {
-        return $this->modeFinancement;
-    }
-
-    public function setModeFinancement(?string $modeFinancement): self
-    {
-        $this->modeFinancement = $modeFinancement;
-
-        return $this;
-    }
 
     public function getParcStationnementVille(): ?string
     {
@@ -246,54 +227,6 @@ class Vehicule
     public function setCouleur(string $couleur): self
     {
         $this->couleur = $couleur;
-
-        return $this;
-    }
-
-    public function getDateDebutContrat(): ?\DateTimeInterface
-    {
-        return $this->dateDebutContrat;
-    }
-
-    public function setDateDebutContrat(\DateTimeInterface $dateDebutContrat): self
-    {
-        $this->dateDebutContrat = $dateDebutContrat;
-
-        return $this;
-    }
-
-    public function getApport(): ?string
-    {
-        return $this->apport;
-    }
-
-    public function setApport(?string $apport): self
-    {
-        $this->apport = $apport;
-
-        return $this;
-    }
-
-    public function getDureeFinancement(): ?int
-    {
-        return $this->dureeFinancement;
-    }
-
-    public function setDureeFinancement(?int $dureeFinancement): self
-    {
-        $this->dureeFinancement = $dureeFinancement;
-
-        return $this;
-    }
-
-    public function getLoyerMensuel(): ?string
-    {
-        return $this->loyerMensuel;
-    }
-
-    public function setLoyerMensuel(?string $loyerMensuel): self
-    {
-        $this->loyerMensuel = $loyerMensuel;
 
         return $this;
     }
@@ -410,4 +343,41 @@ class Vehicule
     {
         return $this->model.' - '.$this->immatriculation;
     }
+
+    public function getMark(): ?string
+    {
+        return $this->mark;
+    }
+
+    public function setMark(string $mark): self
+    {
+        $this->mark = $mark;
+
+        return $this;
+    }
+
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(int $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getIdVehiculeGetaround(): ?int
+    {
+        return $this->idVehiculeGetaround;
+    }
+
+    public function setIdVehiculeGetaround(?int $idVehiculeGetaround): self
+    {
+        $this->idVehiculeGetaround = $idVehiculeGetaround;
+
+        return $this;
+    }
+
 }
