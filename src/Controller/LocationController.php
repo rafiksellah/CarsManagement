@@ -42,10 +42,11 @@ class LocationController extends AbstractController
             $existed_location = $locationRepository->findOneBy(['idLocationGetaround' => $location['id']]);
             if (!$existed_location) {
                 $vehicule =  $vehiculeRepository->findOneBy(['immatriculation' => $location['immatriculation']]);
-                $locations[$key]['plateformeLocation'] = 'Getaround';
-                $locations[$key]['parcStationnementVille'] = $vehicule->getParcStationnementVille();
-                $locations[$key]['model'] = $vehicule->getModel() .' '.$vehicule->getMark();
-            
+                if ($vehicule) {
+                    $locations[$key]['plateformeLocation'] = 'Getaround';
+                    $locations[$key]['parcStationnementVille'] = $vehicule->getParcStationnementVille();
+                    $locations[$key]['model'] = $vehicule->getModel() .' '.$vehicule->getMark();
+                }
             }
         }
 

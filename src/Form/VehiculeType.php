@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Validator\Constraints\Choice;
 
@@ -37,7 +38,9 @@ class VehiculeType extends AbstractType
             ->add('mark')
             ->add('model')
             ->add('immatriculation')
-            ->add('dateImmatriculation')
+            ->add('dateImmatriculation', DateType::class, [
+                'years' => range(1990, date('Y'))
+            ])
             ->add('nombrePlace', ChoiceType::class, [
                 'required' => true,
                 'multiple' => false,
@@ -64,7 +67,9 @@ class VehiculeType extends AbstractType
                 ],
             ])
             ->add('couleur')
-            ->add('dataAchat')
+            ->add('dataAchat', DateType::class, [
+                'years' => range(1990, date('Y'))
+            ])
             ->add('kilometrageAchat')
             ->add('prix')
             ->add('options', ChoiceType::class, [
