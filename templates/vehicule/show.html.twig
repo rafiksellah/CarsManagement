@@ -3,77 +3,142 @@
 {% block title %}Vehicule{% endblock %}
 
 {% block body %}
-    <h1>Vehicule</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ vehicule.id }}</td>
-            <tr>
-                <th>ParcStationnementVille</th>
-                <td>{{ vehicule.parcStationnementVille }}</td>
-            </tr>
-            </tr>
-            <tr>
-                <th>Marque</th>
-                <td>{{ vehicule.mark }}</td>
-            </tr>
-            <tr>
-                <th>Model</th>
-                <td>{{ vehicule.model }}</td>
-            </tr>
-            <tr>
-                <th>Immatriculation</th>
-                <td>{{ vehicule.immatriculation }}</td>
-            </tr>
-            <tr>
-                <th>DateImmatriculation</th>
-                <td>{{ vehicule.dateImmatriculation ? vehicule.dateImmatriculation|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>NombrePlace</th>
-                <td>{{ vehicule.nombrePlace }}</td>
-            </tr>
-            <tr>
-                <th>NombrePorte</th>
-                <td>{{ vehicule.nombrePorte }}</td>
-            </tr>
-            <tr>
-                <th>PhaseFinition</th>
-                <td>{{ vehicule.phaseFinition }}</td>
-            </tr>
-            <tr>
-                <th>Energie</th>
-                <td>{{ vehicule.energie }}</td>
-            </tr>
-            <tr>
-                <th>Couleur</th>
-                <td>{{ vehicule.couleur }}</td>
-            </tr>
-            <tr>
-                <th>DataAchat</th>
-                <td>{{ vehicule.dataAchat ? vehicule.dataAchat|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>KilometrageAchat</th>
-                <td>{{ vehicule.kilometrageAchat }}</td>
-            </tr>
-            <tr>
-                <th>Prix</th>
-                <td>{{ vehicule.prix }}</td>
-            </tr>
-            <tr>
-                <th>Options</th>
-                <td>{{ vehicule.options }}</td>
-            </tr>
-        </tbody>
-    </table>
-
+    <h1>Detail du Vehicule</h1><br>
+ <div class="row">
+ 
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box ">
+                <div class="inner">
+                  <p>Prix d'achat</p>
+                  <h3>0,00€</h3>
+                </div>
+                <div class="icon">
+                  <i class="ion-model-s"></i>
+                </div>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box">
+                <div class="inner">
+                  <p>Dépenses</p>
+                  <h3>0,00€</h3>
+                </div>
+                <div class="icon">
+                  <i class="ion-edit"></i>
+                </div>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box">
+                <div class="inner">
+                  <p>Location</p>
+                  <h3>0,00€</h3>
+                </div>
+                <div class="icon">
+                  <i class="ion-stats-bars"></i>
+                </div>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box">
+                <div class="inner">
+                  <p>Prix de vente </p>
+                  <h3>65 €</h3>
+                </div>
+                <div class="icon">
+                  <i class="ion-card"></i>
+                </div>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box">
+                <div class="inner">
+                  <p>Bénifices </p>
+                  <h3>65 €</h3>
+                </div>
+                <div class="icon">
+                  <i class="ion-card"></i>
+                </div>
+              </div>
+            </div><!-- ./col -->
+          </div>
+         <a class="btn btn-success"href="{{ path('vehicule_edit', {'id': vehicule.id}) }}"><span class="glyphicon glyphicon-pencil"></span> Modifier</a> <br>
+    <div class="card mb-3">
+        <div class="card-body">
+            <table class="table table-striped ">
+                    <tbody>
+                        <tr>
+                            <th>Id</th>
+                            <td>{{ vehicule.id }}</td>
+                        <tr>
+                            <th>ParcStationnementVille</th>
+                            <td>{{ vehicule.parcStationnementVille }}</td>
+                        </tr>
+                        </tr>
+                        <tr>
+                            <th>Marque</th>
+                            <td>{{ vehicule.mark }}</td>
+                        </tr>
+                        <tr>
+                            <th>Model</th>
+                            <td>{{ vehicule.model }}</td>
+                        </tr>
+                        <tr>
+                            <th>Immatriculation</th>
+                            <td>{{ vehicule.immatriculation }}</td>
+                        </tr>
+                        <tr>
+                            <th>DateImmatriculation</th>
+                            <td>{{ vehicule.dateImmatriculation ? vehicule.dateImmatriculation|date('Y-m-d') : '' }}</td>
+                        </tr>
+                        <tr>
+                            <th>NombrePlace</th>
+                            <td>{{ vehicule.nombrePlace }}</td>
+                        </tr>
+                        <tr>
+                            <th>NombrePorte</th>
+                            <td>{{ vehicule.nombrePorte }}</td>
+                        </tr>
+                        <tr>
+                            <th>PhaseFinition</th>
+                            <td>{{ vehicule.phaseFinition }}</td>
+                        </tr>
+                        <tr>
+                            <th>Energie</th>
+                            <td>{{ vehicule.energie }}</td>
+                        </tr>
+                        <tr>
+                            <th>Couleur</th>
+                            <td>{{ vehicule.couleur }}</td>
+                        </tr>
+                        <tr>
+                            <th>DataAchat</th>
+                            <td>{{ vehicule.dataAchat ? vehicule.dataAchat|date('Y-m-d') : '' }}</td>
+                        </tr>
+                        <tr>
+                            <th>KilometrageAchat</th>
+                            <td>{{ vehicule.kilometrageAchat }}</td>
+                        </tr>
+                        <tr>
+                            <th>Prix</th>
+                            <td>{{ vehicule.prix }}</td>
+                        </tr>
+                        <tr>
+                            <th>Options</th>
+                            <td>{{ vehicule.options }}</td>
+                        </tr>
+                    </tbody>
+            </table>
+        </div>
+    </div> 
     <a class="btn btn-info" href="{{ path('vehicule_index') }}">Retour</a>
 
-    <a class="btn btn-success"href="{{ path('vehicule_edit', {'id': vehicule.id}) }}">Modifier</a>
-    <div class="col-md-1">
+    <div class="col-md-2">
     {{ include('vehicule/_delete_form.html.twig') }}
     </div>
 {% endblock %}
