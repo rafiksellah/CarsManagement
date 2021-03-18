@@ -4,6 +4,7 @@ namespace App\Service;
 
 class ApiHelper
 {
+	public $invoice_ids = array();
 
     public function apiConnexion($url)
     {
@@ -33,17 +34,13 @@ class ApiHelper
     public function getInvoiceIds($invoices)
     {
 		foreach ($invoices['data'] as $invoice) {
-			$invoice_ids[] = $invoice['id'];
+			$this->invoice_ids[] = $invoice['id'];
 		}
 		if ($invoices['links']['next'] != NULL ) {
 			$new_invoices = $this->apiConnexion($invoices['links']['next']);
 			$this->getInvoiceIds($new_invoices);
 		}else{
-			if (isset($invoice_ids)) {
-				return $invoice_ids;
-			}else{
-				return array();
-			}
+			return $this->invoice_ids;
 		}
     }
 
@@ -53,11 +50,13 @@ class ApiHelper
     	foreach ($invoice_ids as $invoice_id) {
 			$url = "https://api-eu.getaround.com/api/partners/v1/invoices/".$invoice_id.".json";
 			$invoice_detail = $this->apiConnexion($url);
-			$invoices_with_details[$invoice_id]['id'] = $invoice_id;
-			$invoices_with_details[$invoice_id]['immatriculation'] = $invoice_detail['data']['attributes']['car_plate_number'];
-			$invoices_with_details[$invoice_id]['start_date'] = new \DateTime($invoice_detail['data']['attributes']['trip_start_date_and_time']);;
-			$invoices_with_details[$invoice_id]['end_date'] =  new \DateTime($invoice_detail['data']['attributes']['trip_end_date_and_time']);;
-			$invoices_with_details[$invoice_id]['price'] = round(abs($invoice_detail['data']['attributes']['total_price'] / 100), 2);
+			if ($invoice_detail != 'error') {
+				$invoices_with_details[$invoice_id]['id'] = $invoice_id;
+				$invoices_with_details[$invoice_id]['immatriculation'] = $invoice_detail['data']['attributes']['car_plate_number'];
+				$invoices_with_details[$invoice_id]['start_date'] = new \DateTime($invoice_detail['data']['attributes']['trip_start_date_and_time']);;
+				$invoices_with_details[$invoice_id]['end_date'] =  new \DateTime($invoice_detail['data']['attributes']['trip_end_date_and_time']);;
+				$invoices_with_details[$invoice_id]['price'] = round(abs($invoice_detail['data']['attributes']['total_price'] / 100), 2);
+			}
     	}
     	return $invoices_with_details;
     }

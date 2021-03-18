@@ -38,6 +38,7 @@ class VehiculeController extends AbstractController
 
             $options = $form->get('options')->getData();
             $options_string = implode(',', $options);
+            $vehicule->setStatus(0);
             $vehicule->setOptions($options_string);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($vehicule);
