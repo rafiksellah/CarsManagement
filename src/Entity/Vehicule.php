@@ -267,14 +267,14 @@ class Vehicule
         return $this;
     }
 
-    public function getOptions(): ?string
+    public function getOptions(): ?array
     {
-        return $this->options;
+        return explode(',', $this->options);
     }
 
-    public function setOptions(?string $options): self
+    public function setOptions(?array $options): self
     {
-        $this->options = $options;
+        $this->options = implode(',', $options);
 
         return $this;
     }

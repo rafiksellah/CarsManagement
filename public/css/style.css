@@ -1,0 +1,27 @@
+table, table th {
+	text-align: center;
+}
+.dataTables_wrapper .row{
+	margin: 0 !important;
+}
+.vehicule-reserved, .vehicule-free{
+	padding: 10px;
+	color: white;
+	border-radius: 5px;
+}
+.vehicule-reserved{
+	background-color: red;
+}
+.vehicule-free{
+	background-color: green;
+}
+.btn{
+	box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.75);
+}
+.panel{
+	padding: 15px;
+}
+.dataTables_scrollBody
+{
+	height: 50vh;
+}

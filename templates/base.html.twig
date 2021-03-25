@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{ asset('dist/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dist/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dist/css/buttons.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
   </head>
   <body class="skin-blue">
 
@@ -101,7 +102,10 @@
 
     {% block javascripts %}
     <script>
-        $('#dataTable').DataTable();
+        $('#dataTable').DataTable({
+            scrollY:        '100vh',
+            scrollCollapse: true
+         });
     </script>
     {% endblock %}
   </body>

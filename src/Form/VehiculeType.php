@@ -14,15 +14,6 @@ use Symfony\Component\Validator\Constraints\Choice;
 
 class VehiculeType extends AbstractType
 {   
-    const CHOIX1 = 'Clim';
-    const CHOIX2 = 'GPS';
-    const CHOIX3 = 'limiteur de vitesse';
-    const CHOIX4 ='vitres électriques';
-    const CHOIX5 ='régulateur de vitesse';
-    const CHOIX6 ='Bluetooth';
-    const CHOIX7 ='USB';
-    const CHOIX8 ='AUX';
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -74,18 +65,18 @@ class VehiculeType extends AbstractType
             ->add('prix')
             ->add('options', ChoiceType::class, [
                 'choices'  => [
-                    'Clim' => self::CHOIX1,
-                    'GPS' => self::CHOIX2,
-                    'limiteur de vitesse' => self::CHOIX3,
-                    'vitres électriques'=>self::CHOIX4,
-                    'régulateur de vitesse'=>self::CHOIX5,
-                    'Bluetooth'=>self::CHOIX6,
-                    'USB'=>self::CHOIX7,
-                    'AUX'=>self::CHOIX8,
+                    'Clim'=>'Clim',
+                    'GPS'=>'GPS',
+                    'Limiteur de vitesse'=>'Limiteur de vitesse',
+                    'Vitres électriques'=>'Vitres électriques',
+                    'Régulateur de vitesse'=>'Régulateur de vitesse',
+                    'Bluetooth'=>'Bluetooth',
+                    'USB'=>'USB',
+                    'AUX'=>'AUX',
                     ],
                 'expanded'  => true,
                 'multiple'  => true,
-                'mapped'  => false,
+                'mapped'  => true,
             ])
            ;
     }

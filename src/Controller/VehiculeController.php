@@ -18,10 +18,22 @@ class VehiculeController extends AbstractController
     /**
      * @Route("/", name="vehicule_index", methods={"GET"})
      */
-    public function index(VehiculeRepository $vehiculeRepository): Response
+    public function index(VehiculeRepository $vehiculeRepository, Request $request): Response
     {
+        $filer_city = '';
+        $ville = $request->query->get('city');
+        if ($ville) {
+            $vehicules = $vehiculeRepository->findBy(['parcStationnementVille' => $ville]);
+            $filer_city = $ville;
+        }else{
+            $vehicules = $vehiculeRepository->findAll();
+        }
+
+
+
         return $this->render('vehicule/index.html.twig', [
-            'vehicules' => $vehiculeRepository->findAll(),
+            'vehicules' => $vehicules,
+            'filer_city' => $filer_city,
         ]);
     }
 
@@ -35,11 +47,7 @@ class VehiculeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            $options = $form->get('options')->getData();
-            $options_string = implode(',', $options);
             $vehicule->setStatus(0);
-            $vehicule->setOptions($options_string);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($vehicule);
             $entityManager->flush();
