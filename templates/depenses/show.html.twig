@@ -3,37 +3,40 @@
 {% block title %}Depenses{% endblock %}
 
 {% block body %}
-    <h1>Depenses</h1>
+<br><br>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ depense.id }}</td>
-            </tr>
-            <tr>
-                <th>Date</th>
-                <td>{{ depense.date ? depense.date|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>NatureLibelle</th>
-                <td>{{ depense.natureLibelle }}</td>
-            </tr>
-            <tr>
-                <th>Prix</th>
-                <td>{{ depense.prix }}</td>
-            </tr>
-            <tr>
-                <th>Kilometrage</th>
-                <td>{{ depense.kilometrage }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a class="btn btn-info"  href="{{ path('depenses_index') }}">Retour</a>
-
-    <a class="btn btn-success"  href="{{ path('depenses_edit', {'id': depense.id}) }}">edit</a>
-    <div class="col-md-1">
-    {{ include('depenses/_delete_form.html.twig') }}
+    <div class="row mb-4">
+      <div class="col-1"><a class="btn btn-info" href="{{ path('depenses_index') }}">Retour</a></div>
+      <div class="col-2"><a class="btn btn-success" href="{{ path('depenses_edit', {'id': depense.id}) }}" style="width:100%"><i class="fa fa-edit"></i> Modifier</a></div>
+      <div class="col-4">{{ include('depenses/_delete_form.html.twig') }}</div>
     </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h2 class="h3">Dépense N° {{ depense.id }}</h2>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th>Date</th>
+                        <td>{{ depense.date ? depense.date|date('Y-m-d') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nature / Libellé</th>
+                        <td>{{ depense.natureLibelle }}</td>
+                    </tr>
+                    <tr>
+                        <th>Prix</th>
+                        <td>{{ depense.prix }} €</td>
+                    </tr>
+                    <tr>
+                        <th>Kilometrage</th>
+                        <td>{{ depense.kilometrage }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 {% endblock %}

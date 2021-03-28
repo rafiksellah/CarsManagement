@@ -3,36 +3,56 @@
 {% block title %}Depenses {% endblock %}
 
 {% block body %}
-    <h1>Liste Depenses </h1>
+    <a class="btn btn-success mt-4 mb-3"  href="{{ path('depenses_new') }}"><i class="fa fa-plus"></i> Ajouter une Dépense</a>
+    <div class="card">
+        <div class="card-header">
+            <h2 class="h3">Liste de dépenses</h2>
+        </div>
+        <div class="card-body">
+            <table  id="dataTable" class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Date</th>
+                        <th>Nature / Libellé</th>
+                        <th>Prix</th>
+                        <th>Kilometrage</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for depense in depenses %}
+                    <tr>
+                        <td>{{ depense.id }}</td>
+                        <td>{{ depense.date ? depense.date|date('Y-m-d') : '' }}</td>
+                        <td>{{ depense.natureLibelle }}</td>
+                        <td>{{ depense.prix }} €</td>
+                        <td>{{ depense.kilometrage }}</td>
+                        <td>
 
-    <table  id="dataTable" class="table table-striped">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Date</th>
-                <th>NatureLibelle</th>
-                <th>Prix</th>
-                <th>Kilometrage</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for depense in depenses %}
-            <tr>
-                <td>{{ depense.id }}</td>
-                <td>{{ depense.date ? depense.date|date('Y-m-d') : '' }}</td>
-                <td>{{ depense.natureLibelle }}</td>
-                <td>{{ depense.prix }}</td>
-                <td>{{ depense.kilometrage }}</td>
-                <td>
-                    <a class="btn btn-success"  href="{{ path('depenses_show', {'id': depense.id}) }}">show</a>
-                    <a class="btn btn-info"  href="{{ path('depenses_edit', {'id': depense.id}) }}">edit</a>
-                                   
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a class="btn btn-primary"  href="{{ path('depenses_new') }}">Ajouter depense</a>
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    Action
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <a class="dropdown-item" href="{{ path('depenses_show', {'id': depense.id}) }}"><i class="fa fa-search"></i> Afficher le dépense</a>
+                                    <a class="dropdown-item" href="{{ path('depenses_edit', {'id': depense.id}) }}"><i class="fa fa-edit"></i> Modifier le dépense</a>
+                                    <a class="dropdown-item" href="#">
+                                        <form method="post" action="{{ path('depenses_delete', {'id': depense.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ depense.id) }}">
+                                            <i class="fa fa-trash"></i> 
+                                            <button style="border:none; background:none; padding-left:14px;"> Supprimer</button>
+                                        </form>
+                                    </a>
+                                </ul>
+                            </div>                                           
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}

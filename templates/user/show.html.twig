@@ -1,35 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User{% endblock %}
+{% block title %}utilisateur N° {{ user.id }}{% endblock %}
 
 {% block body %}
-    <h1>User</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <br><br>
+    <div class="row mb-4">
+      <div class="col-1"><a class="btn btn-info" href="{{ path('user_index') }}">Retour</a></div>
+      <div class="col-2"><a class="btn btn-success" href="{{ path('user_edit', {'id': user.id}) }}" style="width:100%"><i class="fa fa-edit"></i> Modifier</a></div>
+      <div class="col-4">{{ include('user/_delete_form.html.twig') }}</div>
+    </div>
 
-    <a class="btn btn-info" href="{{ path('user_index') }}">Retour</a>
 
-    <a class="btn btn-primary" href="{{ path('user_edit', {'id': user.id}) }}">Modifier</a>
-    <div class="col-md-1">
-        {{ include('user/_delete_form.html.twig') }}
+    <div class="card">
+        <div class="card-header">
+            <h2 class="h3">Utilisateur N° {{ user.id }}</h2>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th>Email</th>
+                        <td>{{ user.email }}</td>
+                    </tr>
+                    <tr>
+                        <th>Roles</th>
+                        <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Password</th>
+                        <td>************</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 {% endblock %}
