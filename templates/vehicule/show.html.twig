@@ -3,7 +3,7 @@
 {% block title %}Vehicule{% endblock %}
 
 {% block body %}
-    <h1 class="h2 text-center pt-4 mb-2">Détail du Vehicule</h1><br>
+    <h1 class="h2 text-center pt-4 mb-2">Détail du Véhicule</h1><br>
 
 
 
@@ -133,6 +133,10 @@
                         <tr>
                             <th>Options</th>
                             <td>{{ vehicule.options|join(', ') }}</td>
+                        </tr>
+                        <tr>
+                            <th>ID Getaround</th>
+                            <td>{{ vehicule.idVehiculeGetaround }}</td>
                         </tr>
                     </tbody>
             </table>

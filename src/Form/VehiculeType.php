@@ -78,6 +78,7 @@ class VehiculeType extends AbstractType
                 'multiple'  => true,
                 'mapped'  => true,
             ])
+            ->add('idVehiculeGetaround', null, ['label'=>'ID Getaround'])
            ;
     }
 
