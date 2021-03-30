@@ -66,8 +66,18 @@ class VehiculeController extends AbstractController
      */
     public function show(Vehicule $vehicule): Response
     {
+        $location_price = 0.00;
+        $depense_price = 0.00;
+        foreach ($vehicule->getLocations() as $location) {
+            $location_price += $location->getPrix();
+        }
+        foreach ($vehicule->getDepenses() as $depense) {
+            $depense_price += $depense->getPrix();
+        }
         return $this->render('vehicule/show.html.twig', [
             'vehicule' => $vehicule,
+            'location_price' => $location_price,
+            'depense_price' => $depense_price,
         ]);
     }
 

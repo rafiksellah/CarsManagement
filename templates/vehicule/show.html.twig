@@ -3,7 +3,7 @@
 {% block title %}Vehicule{% endblock %}
 
 {% block body %}
-    <h1>Detail du Vehicule</h1><br>
+    <h1 class="h2 text-center pt-4 mb-2">Détail du Vehicule</h1><br>
 
 
 
@@ -16,8 +16,7 @@
           <div class="info-box-content">
             <span class="info-box-text">Prix d'achat</span>
             <span class="info-box-number">
-              10
-              <small>%</small>
+              {{vehicule.prix}} €
             </span>
           </div>
         </div>
@@ -28,7 +27,7 @@
 
           <div class="info-box-content">
             <span class="info-box-text">Dépenses</span>
-            <span class="info-box-number">41,410</span>
+            <span class="info-box-number">{{depense_price}} €</span>
           </div>
         </div>
       </div>
@@ -39,7 +38,7 @@
 
           <div class="info-box-content">
             <span class="info-box-text">Location</span>
-            <span class="info-box-number">760</span>
+            <span class="info-box-number">{{location_price}} €</span>
           </div>
         </div>
       </div>
@@ -49,7 +48,7 @@
 
           <div class="info-box-content">
             <span class="info-box-text">Prix de vente</span>
-            <span class="info-box-number">2,000</span>
+            <span class="info-box-number">00,00 €</span>
           </div>
         </div>
       </div>
@@ -60,7 +59,7 @@
 
           <div class="info-box-content">
             <span class="info-box-text">Bénifices</span>
-            <span class="info-box-number">2,000</span>
+            <span class="info-box-number">00,00 €</span>
           </div>
         </div>
       </div>
@@ -129,7 +128,7 @@
                         </tr>
                         <tr>
                             <th>Prix</th>
-                            <td>{{ vehicule.prix }}</td>
+                            <td>{{ vehicule.prix }} €</td>
                         </tr>
                         <tr>
                             <th>Options</th>
