@@ -64,25 +64,35 @@ class ApiHelper
     public function getLocations($month)
     {
     	$invoices_with_details = array();
-		$months = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+		$months = ['00','01','02','03','04','05','06','07','08','09','10','11','12'];
 		if ($month != "") {
 			$months = [ $month ];
 		}
 		foreach ($months as $month) {
 			if ($month <= date('n')) {
-	        $date_from = new \DateTime(date('Y-'.$month.'-01'));
+			if ($month == '00') {
+	        	$date_from = new \DateTime(date('2020-12-01'));
+			}else{
+	        	$date_from = new \DateTime(date('Y-'.$month.'-01'));
+			}
 	        $from = $date_from->format('Y-m-d\TH:i:s\Z');
 	        if ($month == date('n')) {
 	        	$date_to = new \DateTime('now');
 	        }else{
-	        	$date_to = new \DateTime(date('Y-'.$month.'-t H:i' , strtotime(date('Y-'.$month.'-t') .' +23hours +59minute')));
+	        	if ($month == '00') {
+	        		$date_to = new \DateTime(date('2020-12-31 H:i' , strtotime(date('2020-12-31') .' +23hours +59minute')));
+	        	}else{
+	        		$date_to = new \DateTime(date('Y-'.$month.'-t H:i' , strtotime(date('Y-'.$month.'-t') .' +23hours +59minute')));
+	        	}
 	        }
 	        $to = $date_to->format('Y-m-d\TH:i:s\Z');
 	        $url = "https://api-eu.getaround.com/api/partners/v1/invoices?end_date=".$to."&start_date=".$from;
 			$invoices = $this->apiConnexion($url);
-			$invoice_ids = $this->getInvoiceIds($invoices);
-			if (!empty($invoice_ids)) {
-				$invoices_with_details = $this->getInvoiceDetails($invoice_ids);
+			if (isset($invoices['data'])) {
+				$invoice_ids = $this->getInvoiceIds($invoices);
+				if (!empty($invoice_ids)) {
+					$invoices_with_details = $this->getInvoiceDetails($invoice_ids);
+				}
 			}
 			}
 		}

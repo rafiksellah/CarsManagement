@@ -33,23 +33,8 @@ class LocationController extends AbstractController
     public function import(Request $request, LocationRepository $locationRepository, VehiculeRepository $vehiculeRepository): Response
     {   
         $locations = array();
-        $month = $request->query->get('month');
-        $imported_locations = $request->request->get('location');
         $entityManager = $this->getDoctrine()->getManager();
-        $apiHelper = new ApiHelper();
-        $locations_api = $apiHelper->getLocations($month);
-        foreach ($locations_api as $key => $location) {
-            $existed_location = $locationRepository->findOneBy(['idLocationGetaround' => $location['id']]);
-            if (!$existed_location) {
-                $vehicule =  $vehiculeRepository->findOneBy(['immatriculation' => $location['immatriculation']]);
-                if ($vehicule) {
-                    $locations[$key]['plateformeLocation'] = 'Getaround';
-                    $locations[$key]['parcStationnementVille'] = $vehicule->getParcStationnementVille();
-                    $locations[$key]['model'] = $vehicule->getModel() .' '.$vehicule->getMark();
-                }
-            }
-        }
-
+        $imported_locations = $request->request->get('location');
         if ($imported_locations) {
             foreach ($imported_locations as $key => $imported_location) {
                 $vehicule =  $vehiculeRepository->findOneBy(['immatriculation' => $imported_location['immatriculation']]);
@@ -66,6 +51,24 @@ class LocationController extends AbstractController
                 $entityManager->flush();
             }
             return $this->redirectToRoute('location_index');
+        }
+
+        $month = $request->query->get('month');
+        if ($month) {
+            $apiHelper = new ApiHelper();
+            $locations_api = $apiHelper->getLocations($month);
+            foreach ($locations_api as $key => $location) {
+                $existed_location = $locationRepository->findOneBy(['idLocationGetaround' => $location['id']]);
+                if (!$existed_location) {
+                    $vehicule =  $vehiculeRepository->findOneBy(['immatriculation' => $location['immatriculation']]);
+                    if ($vehicule) {
+                        $locations[$key] = $location;
+                        $locations[$key]['plateformeLocation'] = 'Getaround';
+                        $locations[$key]['parcStationnementVille'] = $vehicule->getParcStationnementVille();
+                        $locations[$key]['model'] = $vehicule->getModel() .' '.$vehicule->getMark();
+                    }
+                }
+            }
         }
         return $this->render('location/import.html.twig', [
             'locations' => $locations,
