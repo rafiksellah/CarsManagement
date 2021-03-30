@@ -1,24 +1,25 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CarMangement</title>
 
-    <title>Signin</title>
+  <link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sign-in/">
+  <link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
 
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
-  </head>
-    <div class="container d-flex justify-content-center">
-            <div class="col-md-8">
-            {% block body %}
-            {% endblock %}
-            </div>
+  <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+</head>
+
+<body style="background:#343a40">
+<div class="wrapper">
+    <div class="content">
+      <div class="container-fluid">
+        {% block body %}{% endblock %}
+      </div>
     </div>
-  </body>
+</div>
+</body>
 </html>
