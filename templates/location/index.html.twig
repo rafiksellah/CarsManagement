@@ -16,6 +16,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Plateforme</th>
+                        <th>Véhicule</th>
                         <th>Parc</th>
                         <th>De</th>
                         <th>Jusqu'à</th>
@@ -29,6 +30,7 @@
                     <tr>
                         <td>{{ location.id }}</td>
                         <td>{{ location.plateformeLocation }}</td>
+                        <td>{{ location.idVehicule.model }} - {{ location.idVehicule.immatriculation }}</td>
                         <td>{{ location.parcStationnement }}</td>
                         <td>{{ location.dateDebut ? location.dateDebut|date('Y-m-d') : '' }}</td>
                         <td>{{ location.dateFin ? location.dateFin|date('Y-m-d') : '' }}</td>

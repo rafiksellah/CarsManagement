@@ -98,4 +98,17 @@ class ApiHelper
 		}
     	return $invoices_with_details;
     }
+
+    public function getVehiculeAvailability($id_getaround)
+    {
+    	$url = "https://api-eu.getaround.com/api/partners/v1/cars/{$id_getaround}.json";
+		$invoices = $this->apiConnexion($url);
+    	if ($invoices != "error") {
+    		return $invoices['data']['attributes']['state'] == 'active' ? 0 : 1;
+    	}else{
+    		return 'error';
+    	}
+    }
+
+
 }

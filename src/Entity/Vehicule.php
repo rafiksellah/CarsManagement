@@ -110,6 +110,11 @@ class Vehicule
      */
     private $idVehiculeGetaround;
 
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true)
+     */
+    private $prixVente;
+
 
     public function __construct()
     {
@@ -376,6 +381,18 @@ class Vehicule
     public function setIdVehiculeGetaround(?int $idVehiculeGetaround): self
     {
         $this->idVehiculeGetaround = $idVehiculeGetaround;
+
+        return $this;
+    }
+
+    public function getPrixVente(): ?string
+    {
+        return $this->prixVente;
+    }
+
+    public function setPrixVente(?string $prixVente): self
+    {
+        $this->prixVente = $prixVente;
 
         return $this;
     }

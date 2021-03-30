@@ -3,9 +3,7 @@
 {% block title %}New Location{% endblock %}
 
 {% block body %}
-    <h1>Ajouter une Location</h1>
-
+    <h1 class="pt-4 mb-4 text-center h2">Ajouter une location</h1>
+ 
     {{ include('location/_form.html.twig') }}
-
-    <a class="btn btn-info" href="{{ path('location_index') }}">Retour</a>
 {% endblock %}

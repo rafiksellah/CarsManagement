@@ -28,6 +28,10 @@
                         <td>{{ location.parcStationnement }}</td>
                     </tr>
                     <tr>
+                        <th>Véhicule</th>
+                        <td>{{ location.idVehicule.model }} - {{ location.idVehicule.immatriculation }}</td>
+                    </tr>
+                    <tr>
                         <th>Date de début</th>
                         <td>{{ location.dateDebut ? location.dateDebut|date('Y-m-d') : '' }}</td>
                     </tr>

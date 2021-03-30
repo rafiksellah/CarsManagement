@@ -8,7 +8,9 @@ use App\Repository\VehiculeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Service\ApiHelper;
 
 /**
  * @Route("/dashboard/vehicule")
@@ -28,14 +30,43 @@ class VehiculeController extends AbstractController
         }else{
             $vehicules = $vehiculeRepository->findAll();
         }
-
-
-
         return $this->render('vehicule/index.html.twig', [
             'vehicules' => $vehicules,
             'filer_city' => $filer_city,
         ]);
     }
+
+    /**
+     * @Route("/sellvehicule", name="sellvehicule")
+     */
+    public function sellvehicule(Request $request, VehiculeRepository $vehiculeRepository): Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $idvehicule = $request->query->get('idvehicule');
+        $prixvente = $request->query->get('prixvente');
+        $vehicule = $vehiculeRepository->find($idvehicule);
+        $vehicule->setStatus(2);
+        $vehicule->setPrixVente($prixvente);
+        $entityManager->flush();
+        return $this->redirectToRoute('vehicule_index');
+    }
+
+
+    /**
+     * @Route("/refresh", name="refresh_avail_vehicule")
+     */
+    public function refresh(Request $request, VehiculeRepository $vehiculeRepository): Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $apiHelper = new ApiHelper();
+        $vehicules = $vehiculeRepository->findAll();
+        foreach ($vehicules as $vehicule) {
+            $vehicule->setStatus($apiHelper->getVehiculeAvailability($vehicule->getIdVehiculeGetaround()));
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('vehicule_index');
+    }
+
 
     /**
      * @Route("/new", name="vehicule_new", methods={"GET","POST"})
@@ -48,6 +79,7 @@ class VehiculeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $vehicule->setStatus(0);
+            $vehicule->setPrixVente(0);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($vehicule);
             $entityManager->flush();

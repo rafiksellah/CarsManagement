@@ -3,9 +3,7 @@
 {% block title %}New Depenses{% endblock %}
 
 {% block body %}
-    <h1>Ajouter Une Depense</h1>
+    <h1 class="pt-4 mb-4 text-center h2">Ajouter une dépense</h1>
 
     {{ include('depenses/_form.html.twig') }}
-
-    <a class="btn btn-info"  href="{{ path('depenses_index') }}">Retour</a>
 {% endblock %}

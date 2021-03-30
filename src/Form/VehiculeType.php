@@ -79,6 +79,7 @@ class VehiculeType extends AbstractType
                 'mapped'  => true,
             ])
             ->add('idVehiculeGetaround', null, ['label'=>'ID Getaround'])
+            ->add('prixVente', null, ['label'=>'Prix de vente'])
            ;
     }
 
