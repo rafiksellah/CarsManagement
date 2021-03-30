@@ -70,8 +70,24 @@ class LocationController extends AbstractController
                 }
             }
         }
+
+
+
+
+
+        $begin = new \DateTime('2021-01-01');
+        $end = new \DateTime('now');
+        $interval = \DateInterval::createFromDateString('1 month');
+        $period = new \DatePeriod($begin, $interval, $end);
+        $months = array();
+
+        foreach ($period as $dt) {
+            $months[$dt->format('F')] = $dt->format('m');
+        }
+
         return $this->render('location/import.html.twig', [
             'locations' => $locations,
+            'months' => $months,
         ]);
     }
 

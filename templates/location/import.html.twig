@@ -6,15 +6,15 @@
 
 {% if locations %}
 	<form method="post" action="">
-		<table class="table table-bordered text-center">
+		<table class="table table-bordered table-striped text-center">
 			<thead>
-				<th>Id Getaround</th>
+				<th>ID Getaround</th>
 				<th>Plateforme location</th>
 				<th>Parc stationnement</th>
-				<th>Date debut</th>
-				<th>Date fin</th>
+				<th>Date du début</th>
+				<th>Date de fin</th>
 				<th>Prix</th>
-				<th>Vehicule</th>
+				<th>Véhicule</th>
 				<th>Commentaire</th>
 			</thead>
 			<tbody>
@@ -56,9 +56,24 @@
 			</tbody>
 		</table>
 		<button type="submit" class="btn btn-primary float-right">Sauvegarder</button>
+		<a class="btn btn-success float-right mr-2" href="{{path('location_import')}} ">Retour</a>
 	</form>
 {% else %}
-	<p>Aucune location à importer</p>	
+	<p>Aucune location ! Importer les location du mois :     
+
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Choisir mois</button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="?month=00">December</a>
+  	{% for key,month in months %}
+    	<a class="dropdown-item" href="?month={{month}}">{{key}}</a>
+  	{% endfor %}
+  </div>
+</div>
+
+
+
+	</p>	
 {% endif %}
 
 <br><br><br>
