@@ -25,7 +25,7 @@
                 <tbody>
                 {% for vehicule in vehicules %}
                     <tr>
-                        <td>{{ vehicule.model }} {{ vehicule.immatriculation}}</td>
+                        <td><a href="{{ path('vehicule_show', {'id': vehicule.id}) }}">{{ vehicule.model }} {{ vehicule.immatriculation}}</a></td>
                         <td>{{vehicule.parcStationnementVille}}</td>
                         <td>
                         {% if vehicule.status == 0 %}

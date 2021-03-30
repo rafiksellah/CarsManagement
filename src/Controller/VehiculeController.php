@@ -61,8 +61,11 @@ class VehiculeController extends AbstractController
         $apiHelper = new ApiHelper();
         $vehicules = $vehiculeRepository->findAll();
         foreach ($vehicules as $vehicule) {
-            $vehicule->setStatus($apiHelper->getVehiculeAvailability($vehicule->getIdVehiculeGetaround()));
-            $entityManager->flush();
+            $status = $apiHelper->getVehiculeAvailability($vehicule->getIdVehiculeGetaround());
+            if ($status != 'error' && $vehicule->getStatus() != 2 ) {
+                $vehicule->setStatus($status);
+                $entityManager->flush();
+            }
         }
         return $this->redirectToRoute('vehicule_index');
     }
