@@ -22,6 +22,7 @@ class LocationController extends AbstractController
      */
     public function index(LocationRepository $locationRepository): Response
     {
+        setlocale(LC_TIME, "fr_FR"); 
         return $this->render('location/index.html.twig', [
             'locations' => $locationRepository->findAll(),
         ]);
@@ -70,11 +71,6 @@ class LocationController extends AbstractController
                 }
             }
         }
-
-
-
-
-
         $begin = new \DateTime('2021-01-01');
         $end = new \DateTime('now');
         $interval = \DateInterval::createFromDateString('1 month');

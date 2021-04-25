@@ -19,7 +19,7 @@ class Depenses
 
     /**
      * @ORM\ManyToOne(targetEntity=Vehicule::class, inversedBy="depenses")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $idVehicule;
 
@@ -39,7 +39,7 @@ class Depenses
     private $prix;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $kilometrage;
 
