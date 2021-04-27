@@ -133,17 +133,187 @@
     </div>
   </div>
 </div>
+<div class="row">
+  <div class="col-2">
+    {% for year in years %}
+      <button type="button" onclick="show('{{year}}')" class="btn btn-success">{{year}}</button>
+    {% endfor %}
+  </div>
+  <div class="col-8">
+    <h2 class="text-center" id="year_displayed">2021</h2>
+  </div>
+</div>
+  
+<br><br>
+{% for key,year in years %}
+<div class="row mycharts" id="charts{{year}}" {% if key == 0 %}style="display:none;"{% endif %}>
+  <div class="col-lg-4 col-xs-12">
+    <div class="card card-primary">
+    <div class="card-header">
+      <h3 class="card-title">Chiffres d'affaire</h3>
+      <div class="card-tools">
+        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+          <i class="fas fa-minus"></i>
+        </button>
+        <button type="button" class="btn btn-tool" data-card-widget="remove">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="chart">
+        <canvas id="chiffreAffaire{{year}}" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="col-lg-4 col-xs-12">
+    <div class="card card-primary">
+      <div class="card-header">
+        <h3 class="card-title">Dépenses</h3>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+          <button type="button" class="btn btn-tool" data-card-widget="remove">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="chart">
+          <canvas id="depenses{{year}}" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+        </div>
+      </div>
+      </div>
+  </div>
+  <div class="col-lg-4 col-xs-12">
+    <div class="card card-primary">
+      <div class="card-header">
+        <h3 class="card-title">Bénifices</h3>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+          <button type="button" class="btn btn-tool" data-card-widget="remove">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="chart">
+          <canvas id="benifice{{year}}" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
 
 {% endblock %}
 
 
 {% block javascripts %}
 <script>
-
-
-
-
-
+  function show(year){
+    $('.mycharts').hide();
+    $('#charts'+year).show();
+    $('#year_displayed').html(year);
+  }
+  var areaChartOptions = {
+    maintainAspectRatio : false,
+    responsive : true,
+    datasetFill : false,
+    legend: {
+      display: true
+    },
+    scales: {
+      xAxes: [{
+        gridLines : {
+          display : true,
+        }
+      }],
+      yAxes: [{
+        gridLines : {
+          display : true,
+        }
+      }]
+    }
+  }
+  {% for year in years %}
+  var chiffreAffaireareaChartCanvas = $('#chiffreAffaire{{year}}').get(0).getContext('2d')
+  var chiffreAffaireareaChartData = {
+    labels  : {{months_in_french|raw()}},
+    datasets: [
+  {% for key,chiffre_affaire in chiffre_affaire_per_park %}
+    {
+      label               : '{{key}}',
+      backgroundColor     : '{{park_color[key]}}',
+      borderColor         : 'rgba(60,141,188,0.8)',
+      pointRadius          : false,
+      pointColor          : '#3b8bba',
+      pointStrokeColor    : 'rgba(60,141,188,1)',
+      pointHighlightFill  : '#fff',
+      pointHighlightStroke: 'rgba(60,141,188,1)',
+      data                : {{chiffre_affaire[year]|json_encode()|raw() }} 
+    },
+  {% endfor %}
+    ]
+  }
+  new Chart(chiffreAffaireareaChartCanvas, {
+    type: 'line',
+    data: chiffreAffaireareaChartData,
+    options: areaChartOptions
+  })
+  var depensesareaChartCanvas = $('#depenses{{year}}').get(0).getContext('2d')
+  var depensesareaChartData = {
+    labels  : {{months_in_french|raw()}},
+    datasets: [
+  {% for key,depenses in depenses_per_park %}
+    {
+      label               : '{{key}}',
+      backgroundColor     : '{{park_color[key]}}',
+      borderColor         : 'rgba(60,141,188,0.8)',
+      pointRadius          : false,
+      pointColor          : '#3b8bba',
+      pointStrokeColor    : 'rgba(60,141,188,1)',
+      pointHighlightFill  : '#fff',
+      pointHighlightStroke: 'rgba(60,141,188,1)',
+      data                : {{depenses[year]|json_encode()|raw() }} 
+    },
+  {% endfor %}
+    ]
+  }
+  new Chart(depensesareaChartCanvas, {
+    type: 'line',
+    data: depensesareaChartData,
+    options: areaChartOptions
+  })
+  var benificeareaChartCanvas = $('#benifice{{year}}').get(0).getContext('2d')
+  var benificeareaChartData = {
+    labels  : {{months_in_french|raw()}},
+    datasets: [
+  {% for key,benifice in benifice_per_park %}
+    {
+      label               : '{{key}}',
+      backgroundColor     : '{{park_color[key]}}',
+      borderColor         : 'rgba(60,141,188,0.8)',
+      pointRadius          : false,
+      pointColor          : '#3b8bba',
+      pointStrokeColor    : 'rgba(60,141,188,1)',
+      pointHighlightFill  : '#fff',
+      pointHighlightStroke: 'rgba(60,141,188,1)',
+      data                : {{benifice[year]|json_encode()|raw() }} 
+    },
+  {% endfor %}
+    ]
+  }
+  new Chart(benificeareaChartCanvas, {
+    type: 'line',
+    data: benificeareaChartData,
+    options: areaChartOptions
+  })
+{% endfor %}
   var areaChartData = {
     labels  : {{months_in_french|raw()}},
     datasets: [
@@ -162,26 +332,23 @@
     {% endfor %}
     ]
   }
-    //-------------
-    //- Chiffre d'affaire graphs -
-    //-------------
-    var barChartCanvas = $('#barChart').get(0).getContext('2d')
-    var barChartData = $.extend(true, {}, areaChartData)
-    var temp0 = areaChartData.datasets[0]
-    var temp1 = areaChartData.datasets[1]
-    barChartData.datasets[0] = temp1
-    barChartData.datasets[1] = temp0
+  var barChartCanvas = $('#barChart').get(0).getContext('2d')
+  var barChartData = $.extend(true, {}, areaChartData)
+  var temp0 = areaChartData.datasets[0]
+  var temp1 = areaChartData.datasets[1]
+  barChartData.datasets[0] = temp1
+  barChartData.datasets[1] = temp0
 
-    var barChartOptions = {
-      responsive              : true,
-      maintainAspectRatio     : false,
-      datasetFill             : false
-    }
+  var barChartOptions = {
+    responsive              : true,
+    maintainAspectRatio     : false,
+    datasetFill             : false
+  }
 
-    new Chart(barChartCanvas, {
-      type: 'bar',
-      data: barChartData,
-      options: barChartOptions
-    })
+  new Chart(barChartCanvas, {
+    type: 'bar',
+    data: barChartData,
+    options: barChartOptions
+  })
 </script>
 {% endblock %}

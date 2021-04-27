@@ -34,6 +34,10 @@ class DashboardController extends AbstractController
             $last_year->format('Y') => 'red' , 
             $current_year->format('Y') => 'blue' 
         ];
+        $park_color = [
+            'Bastia' => 'red',
+            'Marseille' => 'blue'
+        ];
         $first_day_of_month = new \DateTime('first day of this month');
         $lastt_day_of_month = new \DateTime('last day of this month');
 
@@ -153,6 +157,7 @@ class DashboardController extends AbstractController
             'depenses_per_park' => $depenses_per_park,
             'chiffre_affaire_per_park' => $chiffre_affaire_per_park,
             'benifice_per_park' => $benifice_per_park,
+            'park_color' => $park_color,
 
         ]); 
     }
