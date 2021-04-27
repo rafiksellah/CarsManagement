@@ -52,8 +52,8 @@ class VehiculeRepository extends ServiceEntityRepository
     {
         return count(
             $this->createQueryBuilder('l')
-            ->andWhere('l.dataAchat >= :from')
-            ->setParameter('from', $from)
+            // ->andWhere('l.dataAchat >= :from')
+            // ->setParameter('from', $from)
             ->andWhere('l.dataAchat <= :to')
             ->setParameter('to', $to)
             ->andWhere('l.status != 2')

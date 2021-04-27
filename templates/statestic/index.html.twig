@@ -3,7 +3,13 @@
 {% block title %}Statestiques{% endblock %}
 
 {% block body %}
-<div class="row pt-5">
+
+<div class="pt-4">
+    <a class="btn btn-primary" href="{{path('statestic', {year:2020})}}">2020</a>
+    <a class="btn btn-primary" href="{{path('statestic', {year:2021})}}">2021</a>
+</div>
+
+<div class="row pt-2">
     <div class="col-lg-6 col-xs-6">
         <!-- small box -->
         <div class="small-box bg-white">

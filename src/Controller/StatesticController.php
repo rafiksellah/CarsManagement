@@ -31,7 +31,6 @@ class StatesticController extends AbstractController
             $vehiculesVendus = $vehiculeRepository->findVehiculeSoldByInterval($from, $to);
             $vehiculesAchetes = $vehiculeRepository->findVehiculesAchatByInterval($from, $to);
             $vehiculesActiveCount = $vehiculeRepository->findVehiculesActiveCountByInterval($from, $to);
-
         }else{
             $from = new \DateTime('first day of january 2020');
             $to = new \DateTime('now');

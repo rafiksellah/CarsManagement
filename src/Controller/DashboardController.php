@@ -49,20 +49,35 @@ class DashboardController extends AbstractController
                 $depenses = $depensesRepository->findDepensesByInterval($from, $to);
                 $vehiculeVendus = $vehiculeRepository->findVehiculeSoldByInterval($from, $to);
                 $chiffre_affaire[$year][$month] = 0.00;
+                $chiffre_affaire_per_park['Marseille'][$year][$month] = 0.00;
+                $chiffre_affaire_per_park['Bastia'][$year][$month] = 0.00;
+                $depenses_per_park['Marseille'][$year][$month] = 0.00;
+                $depenses_per_park['Bastia'][$year][$month] = 0.00;
                 foreach ($locations as $location) {
-                     $chiffre_affaire[$year][$month] += $location->getPrix();
-                     $total_locations_per_year[$year] += $location->getPrix();
+                    $chiffre_affaire_per_park[$location->getIdVehicule()->getParcStationnementVille()][$year][$month] += $location->getPrix();
+                    $chiffre_affaire[$year][$month] += $location->getPrix();
+                    $total_locations_per_year[$year] += $location->getPrix();
                 }
                 foreach ($depenses as $depense) {
+                    $depenses_per_park[$depense->getIdVehicule()->getParcStationnementVille()][$year][$month] += $depense->getPrix();
                     $total_depenses_per_year[$year] += $depense->getPrix();
                 }
                 foreach ($vehiculeVendus as $vehiculeVendu) {
                     $chiffre_affaire[$year][$month] += ($vehiculeVendu->getPrixVente() - $vehiculeVendu->getPrix());
+                    $chiffre_affaire_per_park[$vehiculeVendu->getParcStationnementVille()][$year][$month] +=  ($vehiculeVendu->getPrixVente() - $vehiculeVendu->getPrix());
                 }
             }
             $chiffre_affaire_json[$year] = json_encode(array_values($chiffre_affaire[$year]));
             $total_chiffre_affaire_per_year[$year] +=array_sum($chiffre_affaire[$year]);
         }
+        foreach ($chiffre_affaire_per_park as $park => $chiffre_affaire_per_par) {
+            foreach ($chiffre_affaire_per_par as $year => $chiffre_affaire_per_year_per_park) {
+                foreach ($chiffre_affaire_per_year_per_park as $month => $chiffre) {
+                    $benifice_per_park[$park][$year][$month] = $chiffre - $depenses_per_park[$park][$year][$month];
+                } 
+            }
+        }
+
         $months_in_french = ['Janvier','Février','Mars','Avril','Mai','Juin','Juilet','Août','Septembre','Octobre','Novembre','Decembre'];
         $total_depenses = array_sum($total_depenses_per_year);
         $total_locations = array_sum($total_locations_per_year);
@@ -118,6 +133,10 @@ class DashboardController extends AbstractController
             'percentage_increase_depense' => $percentage_increase_depense,
             'percentage_increase_location' => $percentage_increase_location,
             'percentage_increase_chiffre_affaire' => $percentage_increase_chiffre_affaire,
+            'depenses_per_park' => $depenses_per_park,
+            'chiffre_affaire_per_park' => $chiffre_affaire_per_park,
+            'benifice_per_park' => $benifice_per_park,
+
         ]); 
     }
 
