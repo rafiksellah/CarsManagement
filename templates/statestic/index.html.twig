@@ -1,8 +1,164 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello StatesticController!{% endblock %}
+{% block title %}Statestiques{% endblock %}
 
 {% block body %}
+<div class="row pt-5">
+    <div class="col-lg-6 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-white">
+        <div class="inner">
+            <h3>{{vehiculesActiveCount}}</h3>
+            <p>Véhicules actifs</p>
+        </div>
+        <div class="icon">
+            <i class="fas fa-car fa-lg"></i>
+        </div>
+        </div>
+    </div><!-- ./col -->
+    <div class="col-lg-6 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-green">
+        <div class="inner">
+            <h3>{{vehiculeVenduCount}}</h3>
+            <p>Véhicules vendus</p>
+        </div>
+        <div class="icon">
+            <i class="fas fa-car fa-lg"></i>
+        </div>
+        </div>
+    </div><!-- ./col -->
+</div>
+<div class="row">
+    <div class="col-lg-4 col-xs-12">
+        <div class="card">
+            <div class="card-body p-0">
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <th>Achats</th>
+                        <td>{{total_achat}}€</td>
+                    </tr>
+                    <tr>
+                        <th>Ventes</th>
+                        <td>{{total_vente}}€</td>
+                    </tr>
+                    <tr>
+                        <th>Différences</th>
+                        <td>{{ total_achat - total_vente }}€</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-xs-12">
+        <div class="card">
+            <div class="card-body p-0">
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <th>Dépenses</th>
+                        <td>{{total_depense}}€</td>
+                    </tr>
+                    <tr>
+                        <th>Locations</th>
+                        <td>{{total_location}}€</td>
+                    </tr>
+                    <tr>
+                        <th>Différences</th>
+                        <td>{{total_location - total_depense}}€</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-xs-12">
+        <div class="card">
+            <div class="card-body p-0">
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <th>Achats & dépenses</th>
+                        <td>{{total_achat+total_depense}}€</td>
+                    </tr>
+                    <tr>
+                        <th>Ventes & locations</th>
+                        <td>{{total_vente+total_location}}€</td>
+                    </tr>
+                    <tr>
+                        <th>Différences</th>
+                        <td>{{(total_vente+total_location)-(total_achat+total_depense)}}€</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped table-bordered">
+    <thead class="thead-dark">
+        <th>Titre</th>
+        <th>Achat</th>
+        <th>Ventes</th>
+        <th>Dépenses</th>
+        <th>Locations</th>
+        <th>Revient</th>
+        <th>Vendu</th>
+    </thead>
+    <tbody>
+        {% for vehicule in all_vehicules %}
+        <tr>
+            <td>{{vehicule.mark}} - {{vehicule.model}}</td>
+            <td>
+                {% if by_vehicule[vehicule.id]['prix_achat'] is defined %}
+                    {{by_vehicule[vehicule.id]['prix_achat']}}€                  
+                {% endif %}
+            </td>
+            <td>
+                {% if by_vehicule[vehicule.id]['prix_vente'] is defined %}
+                    {{by_vehicule[vehicule.id]['prix_vente']}}€
+                {% else %}
+                    ---
+                {% endif %}
+            </td>
+            <td>
+                {% set sum_depenses = 0 %}
+                {% if by_vehicule[vehicule.id]['depenses'] is defined %}
+                    {% for price in by_vehicule[vehicule.id]['depenses'] %}
+                        {% set sum_depenses = sum_depenses + price %}
+                    {% endfor %}
+                    {{sum_depenses}}€
+                {% else %}
+                    0.00€
+                {% endif %}
+            </td> 
+            <td>
+                {% set sum_locations = 0 %}
+                {% if by_vehicule[vehicule.id]['locations'] is defined %}
+                    {% for price in by_vehicule[vehicule.id]['locations'] %}
+                        {% set sum_locations = sum_locations + price %}
+                    {% endfor %}
+                    {{sum_locations}}€
+                {% else %}
+                    0.00€
+                {% endif %}
+            </td>
+            <td>
+                {% set revenu = 0.00 %}
+                {% if by_vehicule[vehicule.id]['prix_vente'] is defined %}
+                    {% set revenu = revenu + vehicule.prixVente - vehicule.prix %}
+                {% endif %}
+                {% set revenu = revenu + sum_locations - sum_depenses %}
+                {{revenu}}€
+            </td>
+            <td>
+                {% if vehicule.status == 2 %}
+                    Oui
+                {% else %}
+                    Non
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
 
 {% endblock %}

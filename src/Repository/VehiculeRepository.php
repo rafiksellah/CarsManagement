@@ -23,7 +23,7 @@ class VehiculeRepository extends ServiceEntityRepository
      * @return Vehicule[] Returns an array of Vehicule objects
      */
     
-    public function findVehiculeSoldOfMonth($from, $to)
+    public function findVehiculeSoldByInterval($from, $to)
     {
         return $this->createQueryBuilder('l')
             ->andWhere('l.dateVente >= :from')
@@ -34,6 +34,32 @@ class VehiculeRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
+    }
+
+    public function findVehiculesAchatByInterval($from, $to)
+    {
+        return $this->createQueryBuilder('l')
+            ->andWhere('l.dataAchat >= :from')
+            ->setParameter('from', $from)
+            ->andWhere('l.dataAchat <= :to')
+            ->setParameter('to', $to)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
+    public function findVehiculesActiveCountByInterval($from, $to)
+    {
+        return count(
+            $this->createQueryBuilder('l')
+            ->andWhere('l.dataAchat >= :from')
+            ->setParameter('from', $from)
+            ->andWhere('l.dataAchat <= :to')
+            ->setParameter('to', $to)
+            ->andWhere('l.status != 2')
+            ->getQuery()
+            ->getResult()
+        );
     }
     
 

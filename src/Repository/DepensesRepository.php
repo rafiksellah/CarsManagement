@@ -23,7 +23,7 @@ class DepensesRepository extends ServiceEntityRepository
      * @return Depenses[] Returns an array of Depenses objects
      */
     
-    public function findDepensesOfMonth($from, $to)
+    public function findDepensesByInterval($from, $to)
     {
         return $this->createQueryBuilder('d')
             ->andWhere('d.date >= :from')

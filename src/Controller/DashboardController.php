@@ -34,7 +34,7 @@ class DashboardController extends AbstractController
             $last_year->format('Y') => 'red' , 
             $current_year->format('Y') => 'blue' 
         ];
-        $first_day_of_month = new \DateTime('midnight first day of this month');
+        $first_day_of_month = new \DateTime('first day of this month');
         $lastt_day_of_month = new \DateTime('last day of this month');
 
         foreach ($years as $year) {
@@ -45,9 +45,9 @@ class DashboardController extends AbstractController
                 $month = date('m', mktime(0,0,0,$m, 1, date('Y')));
                 $from = new \DateTime($year.'-'.$month.'-01');
                 $to = new \DateTime(date($year.'-'.$month.'-t'));
-                $locations = $locationRepository->findLocationsOfMonth($from, $to);
-                $depenses = $depensesRepository->findDepensesOfMonth($from, $to);
-                $vehiculeVendus = $vehiculeRepository->findVehiculeSoldOfMonth($from, $to);
+                $locations = $locationRepository->findLocationsByInterval($from, $to);
+                $depenses = $depensesRepository->findDepensesByInterval($from, $to);
+                $vehiculeVendus = $vehiculeRepository->findVehiculeSoldByInterval($from, $to);
                 $chiffre_affaire[$year][$month] = 0.00;
                 foreach ($locations as $location) {
                      $chiffre_affaire[$year][$month] += $location->getPrix();
@@ -86,15 +86,15 @@ class DashboardController extends AbstractController
         }
         $percentage_increase_chiffre_affaire = (($total_chiffre_affaire_per_year[$current_year->format('Y')] - $original_value)/$original_value)*100;
 
-        $locations = $locationRepository->findLocationsOfMonth($first_day_of_month,$lastt_day_of_month);
+        $locations = $locationRepository->findLocationsByInterval($first_day_of_month,$lastt_day_of_month);
         foreach ($locations as $location) {
             $location_price += $location->getPrix();
         }
-        $depenses = $depensesRepository->findDepensesOfMonth($first_day_of_month,$lastt_day_of_month);
+        $depenses = $depensesRepository->findDepensesByInterval($first_day_of_month,$lastt_day_of_month);
         foreach ($depenses as $depense) {
             $depense_price += $depense->getPrix();
         }
-        $vehiculeVendus = $vehiculeRepository->findVehiculeSoldOfMonth($first_day_of_month,$lastt_day_of_month);
+        $vehiculeVendus = $vehiculeRepository->findVehiculeSoldByInterval($first_day_of_month,$lastt_day_of_month);
         foreach ($vehiculeVendus as $vehiculeVendu) {
             $vente_price += $vehiculeVendu->getPrixVente();
             $achat_price += $vehiculeVendu->getPrix();

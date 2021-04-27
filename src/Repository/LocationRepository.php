@@ -23,7 +23,7 @@ class LocationRepository extends ServiceEntityRepository
      * @return Location[] Returns an array of Location objects
      */
     
-    public function findLocationsOfMonth($from, $to)
+    public function findLocationsByInterval($from, $to)
     {
         return $this->createQueryBuilder('l')
             ->andWhere('l.dateDebut >= :from')
