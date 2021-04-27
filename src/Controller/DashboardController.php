@@ -59,7 +59,9 @@ class DashboardController extends AbstractController
                     $total_locations_per_year[$year] += $location->getPrix();
                 }
                 foreach ($depenses as $depense) {
-                    $depenses_per_park[$depense->getIdVehicule()->getParcStationnementVille()][$year][$month] += $depense->getPrix();
+                    if ($depense->getIdVehicule()) {
+                        $depenses_per_park[$depense->getIdVehicule()->getParcStationnementVille()][$year][$month] += $depense->getPrix();
+                    }
                     $total_depenses_per_year[$year] += $depense->getPrix();
                 }
                 foreach ($vehiculeVendus as $vehiculeVendu) {
@@ -118,6 +120,21 @@ class DashboardController extends AbstractController
         $vente_vehicule = $vente_price - $achat_price;
 
 
+        foreach ($depenses_per_park as $park => $depenses_per_par) {
+            foreach ($depenses_per_par as $year => $depenses_per_pa) {
+                $depenses_per_park[$park][$year] = array_values($depenses_per_pa);
+            }
+        }
+        foreach ($chiffre_affaire_per_park as $chiffre_affaire_per_par) {
+            foreach ($chiffre_affaire_per_par as $year => $chiffre_affaire_per_pa) {
+                $chiffre_affaire_per_park[$park][$year] = array_values($chiffre_affaire_per_pa);
+            }
+        }
+        foreach ($benifice_per_park as $benifice_per_par) {
+            foreach ($benifice_per_par as $year => $benifice_per_) {
+                $benifice_per_park[$park][$year] = array_values($benifice_per_);
+            }
+        }
         return $this->render('dashboard/index.html.twig', [
             'location_price' => $location_price,
             'depense_price' => $depense_price,
