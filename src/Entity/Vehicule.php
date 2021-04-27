@@ -111,9 +111,14 @@ class Vehicule
     private $idVehiculeGetaround;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true)
+     * @ORM\Column(type="decimal", precision=10, scale=2)
      */
-    private $prixVente;
+    private $prixVente = 0.00;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $dateVente;
 
 
     public function __construct()
@@ -393,6 +398,18 @@ class Vehicule
     public function setPrixVente(?string $prixVente): self
     {
         $this->prixVente = $prixVente;
+
+        return $this;
+    }
+
+    public function getDateVente(): ?\DateTimeInterface
+    {
+        return $this->dateVente;
+    }
+
+    public function setDateVente(?\DateTimeInterface $dateVente): self
+    {
+        $this->dateVente = $dateVente;
 
         return $this;
     }

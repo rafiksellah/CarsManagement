@@ -19,22 +19,23 @@ class VehiculeRepository extends ServiceEntityRepository
         parent::__construct($registry, Vehicule::class);
     }
 
-    // /**
-    //  * @return Vehicule[] Returns an array of Vehicule objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Vehicule[] Returns an array of Vehicule objects
+     */
+    
+    public function findVehiculeSoldOfMonth($from, $to)
     {
-        return $this->createQueryBuilder('v')
-            ->andWhere('v.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('v.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->createQueryBuilder('l')
+            ->andWhere('l.dateVente >= :from')
+            ->setParameter('from', $from)
+            ->andWhere('l.dateVente <= :to')
+            ->setParameter('to', $to)
+            ->andWhere('l.status = 2')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+    
 
     /*
     public function findOneBySomeField($value): ?Vehicule

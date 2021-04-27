@@ -99,15 +99,21 @@ class ApiHelper
     	return $invoices_with_details;
     }
 
-    public function getVehiculeAvailability($id_getaround)
+    public function getVehiculeUnavailability()
     {
-    	$url = "https://api-eu.getaround.com/api/partners/v1/cars/{$id_getaround}.json";
-		$invoices = $this->apiConnexion($url);
-    	if ($invoices != "error") {
-    		return $invoices['data']['attributes']['state'] == 'active' ? 0 : 1;
-    	}else{
-    		return 'error';
-    	}
+		$dateFrom = new \DateTime('today');
+		$dateTo = new \DateTime('tomorrow');
+		$from = $dateFrom->format('Y-m-d\TH:i:s\Z');
+		$to = $dateTo->format('Y-m-d\TH:i:s\Z');
+		$url = "https://api-eu.getaround.com/api/partners/v1/unavailabilities.json?end_date=".$to."&start_date=".$from;
+		$unavailabilities = $this->apiConnexion($url);
+		$car_ids = [];
+		if ($unavailabilities != 'error') {
+			foreach ($unavailabilities['data'] as $unavailability) {
+				$car_ids[] = $unavailability['attributes']['car_id'];
+			}
+		}
+		return $car_ids;
     }
 
 

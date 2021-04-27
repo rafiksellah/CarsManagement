@@ -19,22 +19,22 @@ class DepensesRepository extends ServiceEntityRepository
         parent::__construct($registry, Depenses::class);
     }
 
-    // /**
-    //  * @return Depenses[] Returns an array of Depenses objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Depenses[] Returns an array of Depenses objects
+     */
+    
+    public function findDepensesOfMonth($from, $to)
     {
         return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('d.id', 'ASC')
-            ->setMaxResults(10)
+            ->andWhere('d.date >= :from')
+            ->setParameter('from', $from)
+            ->andWhere('d.date <= :to')
+            ->setParameter('to', $to)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+    
 
     /*
     public function findOneBySomeField($value): ?Depenses

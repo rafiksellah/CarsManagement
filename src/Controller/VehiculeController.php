@@ -22,7 +22,20 @@ class VehiculeController extends AbstractController
      */
     public function index(VehiculeRepository $vehiculeRepository, Request $request): Response
     {
+        $entityManager = $this->getDoctrine()->getManager();
+        $apiHelper = new ApiHelper();
+        $unavailable_cars = $apiHelper->getVehiculeUnavailability();
         $filer_city = '';
+        $vehicules = $vehiculeRepository->findAll();
+        foreach ($vehicules as $vehicule) {
+            $id_cars_getaround = $vehicule->getIdVehiculeGetaround();
+            if ($vehicule->getStatus() != 2 ) {
+                if (in_array($id_cars_getaround, $unavailable_cars) ) {
+                    $vehicule->setStatus(1);
+                    $entityManager->flush();
+                }
+            }
+        }
         $ville = $request->query->get('city');
         if ($ville) {
             $vehicules = $vehiculeRepository->findBy(['parcStationnementVille' => $ville]);
@@ -30,6 +43,7 @@ class VehiculeController extends AbstractController
         }else{
             $vehicules = $vehiculeRepository->findAll();
         }
+
         return $this->render('vehicule/index.html.twig', [
             'vehicules' => $vehicules,
             'filer_city' => $filer_city,
@@ -52,24 +66,26 @@ class VehiculeController extends AbstractController
     }
 
 
-    /**
-     * @Route("/refresh", name="refresh_avail_vehicule")
-     */
-    public function refresh(Request $request, VehiculeRepository $vehiculeRepository): Response
-    {
-        $entityManager = $this->getDoctrine()->getManager();
-        $apiHelper = new ApiHelper();
-        $vehicules = $vehiculeRepository->findAll();
-        foreach ($vehicules as $vehicule) {
-            $status = $apiHelper->getVehiculeAvailability($vehicule->getIdVehiculeGetaround());
-            if ($status != 'error' && $vehicule->getStatus() != 2 ) {
-                $vehicule->setStatus($status);
-                $entityManager->flush();
-            }
-        }
-        return $this->redirectToRoute('vehicule_index');
-    }
-
+    // /**
+    //  * @Route("/refresh", name="refresh_avail_vehicule")
+    //  */
+    // public function refresh(Request $request, VehiculeRepository $vehiculeRepository): Response
+    // {
+    //     $entityManager = $this->getDoctrine()->getManager();
+    //     $apiHelper = new ApiHelper();
+    //     $unavailable_cars = $apiHelper->getVehiculeUnavailability();
+    //     $vehicules = $vehiculeRepository->findAll();
+    //     foreach ($vehicules as $vehicule) {
+    //         $id_cars_getaround = $vehicule->getIdVehiculeGetaround();
+    //         if ($vehicule->getStatus() != 2 ) {
+    //             if (in_array($id_cars_getaround, $unavailable_cars) ) {
+    //                 $vehicule->setStatus(1);
+    //                 $entityManager->flush();
+    //             }
+    //         }
+    //     }
+    //     return $this->redirectToRoute('vehicule_index');
+    // }
 
     /**
      * @Route("/new", name="vehicule_new", methods={"GET","POST"})
@@ -110,10 +126,10 @@ class VehiculeController extends AbstractController
         foreach ($vehicule->getDepenses() as $depense) {
             $depense_price += $depense->getPrix();
         }
+        $vehicule_benefice = ($location_price + $vehicule->getPrixVente()) - $depense_price; 
         if ($vehicule->getStatus() == 2) {
-            $vehicule_benefice = $vehicule->getPrixVente() - $vehicule->getPrix();
+            $vehicule_benefice = $vehicule_benefice - $vehicule->getPrix();
         }
-        
         return $this->render('vehicule/show.html.twig', [
             'vehicule' => $vehicule,
             'location_price' => $location_price,

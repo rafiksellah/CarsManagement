@@ -16,7 +16,6 @@
                         <th>Date</th>
                         <th>Nature / Libellé</th>
                         <th>Prix</th>
-                        <th>Kilometrage</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -27,7 +26,6 @@
                         <td>{{ depense.date ? depense.date|date('Y-m-d') : '' }}</td>
                         <td><a href="{{ path('depenses_edit', {'id': depense.id}) }}">{{ depense.natureLibelle }}</a></td>
                         <td>{{ depense.prix }} €</td>
-                        <td>{{ depense.kilometrage }}</td>
                         <td>
 
                             <div class="dropdown">

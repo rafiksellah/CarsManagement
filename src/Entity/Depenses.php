@@ -38,11 +38,6 @@ class Depenses
      */
     private $prix;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $kilometrage;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -92,18 +87,6 @@ class Depenses
     public function setPrix(string $prix): self
     {
         $this->prix = $prix;
-
-        return $this;
-    }
-
-    public function getKilometrage(): ?int
-    {
-        return $this->kilometrage;
-    }
-
-    public function setKilometrage(int $kilometrage): self
-    {
-        $this->kilometrage = $kilometrage;
 
         return $this;
     }

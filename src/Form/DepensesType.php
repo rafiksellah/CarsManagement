@@ -34,7 +34,6 @@ class DepensesType extends AbstractType
                 ],
             ])
             ->add('prix')
-            ->add('kilometrage')
             ->add('idVehicule', null, ['label'=> 'Véhicule'])
         ;
     }
