@@ -18,6 +18,7 @@ class VehiculeType extends AbstractType
     {
         $builder
              ->add('parcStationnementVille', ChoiceType::class, [
+                'label' => 'Parc de stationnement (ville)',
                 'required' => true,
                 'multiple' => false,
                 'expanded' => false,
@@ -26,9 +27,9 @@ class VehiculeType extends AbstractType
                 'Bastia' => 'Bastia',
                 ],
             ])
-            ->add('mark')
+            ->add('mark', null, ['label'=> 'Marque'])
             ->add('model')
-            ->add('immatriculation')
+            ->add('immatriculation', null, ['label'=> ' Modèle'])
             ->add('dateImmatriculation', DateType::class, [
                 'years' => range(1990, date('Y'))
             ])
@@ -59,6 +60,7 @@ class VehiculeType extends AbstractType
             ])
             ->add('couleur')
             ->add('dataAchat', DateType::class, [
+                'label'=> 'Date d’achat',
                 'years' => range(1990, date('Y'))
             ])
             ->add('kilometrageAchat')

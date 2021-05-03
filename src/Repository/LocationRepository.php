@@ -26,9 +26,9 @@ class LocationRepository extends ServiceEntityRepository
     public function findLocationsByInterval($from, $to)
     {
         return $this->createQueryBuilder('l')
-            ->andWhere('l.dateDebut >= :from')
+            ->andWhere('l.dateFin >= :from')
             ->setParameter('from', $from)
-            ->andWhere('l.dateDebut <= :to')
+            ->andWhere('l.dateFin <= :to')
             ->setParameter('to', $to)
             ->getQuery()
             ->getResult()

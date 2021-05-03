@@ -9,7 +9,7 @@
             <h2 class="h3">Liste de dépenses</h2>
         </div>
         <div class="card-body">
-            <table  id="dataTable" class="table table-striped">
+            <table  id="dataTableDepenses" class="table table-striped">
                 <thead class="thead-dark">
                     <tr>
                         <th>ID</th>
@@ -23,7 +23,7 @@
                 {% for depense in depenses %}
                     <tr>
                         <td>{{ depense.id }}</td>
-                        <td>{{ depense.date ? depense.date|date('Y-m-d') : '' }}</td>
+                        <td>{{ depense.date ? depense.date|date('d/m/Y') : '' }}</td>
                         <td><a href="{{ path('depenses_edit', {'id': depense.id}) }}">{{ depense.natureLibelle }}</a></td>
                         <td>{{ depense.prix }} €</td>
                         <td>
@@ -53,4 +53,13 @@
             </table>
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+<script>
+    $('#dataTableDepenses').DataTable({
+        scrollY:        '100vh',
+        scrollCollapse: true,
+        "order": [[ 0, "desc" ]]
+    });
+</script>
 {% endblock %}
