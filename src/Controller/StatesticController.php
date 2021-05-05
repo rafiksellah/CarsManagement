@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Repository\DepensesRepository;
 use App\Repository\LocationRepository;
 use App\Repository\VehiculeRepository;
+use App\Service\ApiHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +16,7 @@ class StatesticController extends AbstractController
     /**
      * @Route("/dashboard/statestic", name="statestic")
      */
-    public function index(Request $request, LocationRepository $locationRepository, DepensesRepository $depensesRepository, VehiculeRepository $vehiculeRepository): Response
+    public function index(Request $request, LocationRepository $locationRepository, DepensesRepository $depensesRepository, VehiculeRepository $vehiculeRepository, ApiHelper $apiHelper): Response
     {
         $year = $request->query->get('year');
         $total_achat = 0.00;
@@ -32,6 +33,7 @@ class StatesticController extends AbstractController
             $vehiculesAchetes = $vehiculeRepository->findVehiculesAchatByInterval($from, $to);
             $vehiculesActiveCount = $vehiculeRepository->findVehiculesActiveCountByInterval($from, $to);
         }else{
+            $year = '2021';
             $from = new \DateTime('first day of january 2020');
             $to = new \DateTime('now');
             $locations = $locationRepository->findLocationsByInterval($from, $to);
@@ -61,6 +63,9 @@ class StatesticController extends AbstractController
         }
         $all_vehicules = $vehiculeRepository->findAll();
 
+        $allUnavailabilities = $apiHelper->getAllVehiculeUnavailabilityPerMonth($year);
+
+        dd($allUnavailabilities);
 
         return $this->render('statestic/index.html.twig', [
             'total_location' => $total_location,

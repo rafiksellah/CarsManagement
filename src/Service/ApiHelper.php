@@ -109,7 +109,6 @@ class ApiHelper
 		$to = $dateTo->format('Y-m-d\TH:i:s\Z');
 		$url = "https://api-eu.getaround.com/api/partners/v1/unavailabilities.json?end_date=".$to."&start_date=".$from;
 		$unavailabilities = $this->apiConnexion($url);
-		dd($unavailabilities);
 		$car_ids = [];
 		if ($unavailabilities != 'error') {
 			foreach ($unavailabilities['data'] as $unavailability) {
@@ -120,9 +119,17 @@ class ApiHelper
     }
 
 	public function getAllVehiculeUnavailabilityPerMonth($year){
-		
+		dd($year);
 
 		return array();
+	}
+
+	public function getUnavailabilities($dateFrom, $dateTo){
+		$from = $dateFrom->format('Y-m-d\TH:i:s\Z');
+		$to = $dateTo->format('Y-m-d\TH:i:s\Z');
+		$url = "https://api-eu.getaround.com/api/partners/v1/unavailabilities.json?end_date=".$to."&start_date=".$from;
+		$unavailabilities = $this->apiConnexion($url);
+		return $unavailabilities;
 	}
 
 
