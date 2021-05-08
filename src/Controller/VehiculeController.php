@@ -58,9 +58,11 @@ class VehiculeController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $idvehicule = $request->query->get('idvehicule');
         $prixvente = $request->query->get('prixvente');
+        $dateVente = $request->query->get('dateVente');
         $vehicule = $vehiculeRepository->find($idvehicule);
         $vehicule->setStatus(2);
         $vehicule->setPrixVente($prixvente);
+        $vehicule->setDateVente(new \DateTime($dateVente));
         $entityManager->flush();
         return $this->redirectToRoute('vehicule_index');
     }

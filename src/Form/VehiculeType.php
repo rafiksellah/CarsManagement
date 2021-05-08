@@ -28,8 +28,8 @@ class VehiculeType extends AbstractType
                 ],
             ])
             ->add('mark', null, ['label'=> 'Marque'])
-            ->add('model')
-            ->add('immatriculation', null, ['label'=> ' Modèle'])
+            ->add('model', null, ['label'=> ' Modèle'])
+            ->add('immatriculation', null, ['label'=> ' Immatriculation'])
             ->add('dateImmatriculation', DateType::class, [
                 'years' => range(1990, date('Y'))
             ])
@@ -61,6 +61,10 @@ class VehiculeType extends AbstractType
             ->add('couleur')
             ->add('dataAchat', DateType::class, [
                 'label'=> 'Date d’achat',
+                'years' => range(1990, date('Y'))
+            ])
+            ->add('dateVente', DateType::class, [
+                'label'=> 'Date de vente',
                 'years' => range(1990, date('Y'))
             ])
             ->add('kilometrageAchat')

@@ -75,7 +75,8 @@
     <form method="GET" action="{{ path('sellvehicule') }}">
       <input type="hidden" name="idvehicule" value="{{vehicule.id}}">
       <div class="row mb-3">
-        <div class="col-4"><input type="number" step="0.01" name="prixvente" class="form-control" autocomplete="off" required placeholder="Introduire le prix de vente (€)"></div>
+        <div class="col-3"><input type="number" step="0.01" name="prixvente" class="form-control" autocomplete="off" required placeholder="Introduire le prix de vente (€)"></div>
+        <div class="col-2"><input type="date" name="dateVente" class="form-control" autocomplete="off" required></div>
         <div class="col-2"><button type="submit" class="btn btn-primary">Vendre le véhicule</button></div>
       </div>
     </form>
@@ -130,9 +131,15 @@
                             <td>{{ vehicule.couleur }}</td>
                         </tr>
                         <tr>
-                            <th>Data d'achat</th>
-                            <td>{{ vehicule.dataAchat ? vehicule.dataAchat|date('Y-m-d') : '' }}</td>
+                            <th>Date d'achat</th>
+                            <td>{{ vehicule.dataAchat ? vehicule.dataAchat|date('d/m/Y') : '' }}</td>
                         </tr>
+                        {% if vehicule.dateVente %}
+                        <tr>
+                          <th>Data de vente</th>
+                          <td>{{ vehicule.dateVente ? vehicule.dateVente|date('d/m/Y') : '' }}</td>
+                        </tr>
+                        {% endif %}
                         <tr>
                             <th>Kilometrage d'achat</th>
                             <td>{{ vehicule.kilometrageAchat }}</td>
