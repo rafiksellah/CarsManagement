@@ -31,9 +31,9 @@
                         <td>{{ location.plateformeLocation }}</td>
                         <td>{{ location.idVehicule.model }} - {{ location.idVehicule.immatriculation }}</td>
                         <td>{{ location.parcStationnement }}</td>
-                        <td><span style="display: none;">{{ location.dateFin ? location.dateFin|date('Y-m-d') : '' }}</span>
-                            De: {{ location.dateDebut ? location.dateDebut|date('d M, Y') : '' }} <br>
-                            à : {{ location.dateFin ? location.dateFin|date('d M, Y') : '' }}
+                        <td><span style="display: none;">{{ location.dateFin ? location.dateFin|date('d/m/Y') : '' }}</span>
+                            De: {{ location.dateDebut ? location.dateDebut|date('d/m/Y') : '' }} <br>
+                            à : {{ location.dateFin ? location.dateFin|date('d/m/Y') : '' }}
                         </td>
                         <td>{{ location.remarque }}</td>
                         <td>{{ location.prix }} €</td>

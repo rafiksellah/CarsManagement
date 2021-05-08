@@ -33,12 +33,12 @@
 							{{location.parcStationnementVille }}
 						</td>
 						<td>
-							<input class="form-control" type="hidden" value="{{location.start_date|date('Y-m-d') }}" name="location[{{location.id}}][start_date]">
-							{{location.start_date|date('Y-m-d') }}
+							<input class="form-control" type="hidden" value="{{location.start_date|date('d/m/Y') }}" name="location[{{location.id}}][start_date]">
+							{{location.start_date|date('d/m/Y') }}
 						</td>
 						<td>
-							<input class="form-control" type="hidden" value="{{location.end_date|date('Y-m-d') }}" name="location[{{location.id}}][end_date]">
-							{{location.end_date|date('Y-m-d') }}
+							<input class="form-control" type="hidden" value="{{location.end_date|date('d/m/Y') }}" name="location[{{location.id}}][end_date]">
+							{{location.end_date|date('d/m/Y') }}
 						</td>
 						<td>
 							<input class="form-control" type="hidden" value="{{location.price }}" name="location[{{location.id}}][price]">
