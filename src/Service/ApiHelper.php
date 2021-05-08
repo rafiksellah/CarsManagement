@@ -119,9 +119,57 @@ class ApiHelper
     }
 
 	public function getAllVehiculeUnavailabilityPerMonth($year){
-		dd($year);
+		//dd($year);
+		$months = ['January','February','March','april','May','June','July ','August','September','October','November','December'];
+		$dayArray=[];
+		$daysPers=[];   
+        for ($i=0; $i <count($months) ; $i++) { 
+			$cars=[];
+			$carspers = [];
+            $from=new \DateTime('first day of '.$months[$i] );
+            $to = new \DateTime('last day of '. $months[$i]);
+            
+            $allUnavailabilities = $this->getUnavailabilities($from, $to);
+            foreach ($allUnavailabilities['data'] as $key => $allUnavalabilitie) {
+               $carId=$allUnavalabilitie['attributes']['car_id'];
+               $dayEnd=strtotime($allUnavalabilitie['attributes']['ends_at']);
+               $dayStart=strtotime($allUnavalabilitie['attributes']['starts_at']);
+               $days = ceil(($dayEnd - $dayStart) / (3600 * 24));             
+               $subStart = (strtotime($from->format('Y-m-d H:i:s'))-$dayStart) / (3600 * 24);
+               $subEnd = ($dayEnd - strtotime($to->format('Y-m-d H:i:s'))) / (3600 * 24);
+               if ($subEnd  < 0)
+                    $subEnd = 0;
+               if ($subStart  < 0)
+                    $subStart = 0;
+				$days -= ($subEnd+$subStart);
+				$days = ceil(($days));
 
-		return array();
+				if ($i == 0 || $i == 2 || $i == 4 || $i == 6 || $i == 7 || $i == 9 || $i == 11){
+					$nbrdays = 31.;
+				}else if ($i == 1)
+				{
+					if ($year/4){
+						$nbrdays=29.;
+					}else{
+						$nbrdays=28.;
+					}
+
+				}
+				else
+				{
+					$nbrdays=30.;
+				}
+				
+				$cars[$carId] = ceil($days);
+				$carspers[$carId] =($days / $nbrdays) * 100;
+				
+            }
+			$dayArray[$i+1] = $cars;
+			$daysPers[$i+1]=$carspers;
+
+        }
+       
+		return Array($dayArray, $daysPers);
 	}
 
 	public function getUnavailabilities($dateFrom, $dateTo){
