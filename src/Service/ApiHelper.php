@@ -2,9 +2,19 @@
 
 namespace App\Service;
 
+use App\Repository\VehiculeRepository;
+
 class ApiHelper
 {
 	public $invoice_ids = array();
+	public $vehiculeRepository;
+
+	public function __construct(VehiculeRepository $vehiculeRepository)
+	{
+		$this->vehiculeRepository = $vehiculeRepository;
+		
+	}
+
 
     public function apiConnexion($url)
     {
@@ -118,7 +128,6 @@ class ApiHelper
 		return $car_ids;
     }
 
-
 	public function getAllVehiculeUnavailabilityPerMonth($year){
 		$months = ['January','February','March','april','May','June','July ','August','September','October','November','December'];
 		$car_unavailability=[];
@@ -147,9 +156,11 @@ class ApiHelper
 					$days -= $days_after;
 				}
 				if ($days >= $number_days_in_month) {
+					$car_unavailability[$i+1][$carId]['vehicule'] = $this->vehiculeRepository->findOneBy(['idVehiculeGetaround' => $carId]) ;
 					$car_unavailability[$i+1][$carId]['number_days'] = $number_days_in_month;
 					$car_unavailability[$i+1][$carId]['percent_days'] = 100;
 				}else{
+					$car_unavailability[$i+1][$carId]['vehicule'] = $this->vehiculeRepository->findOneBy(['idVehiculeGetaround' => $carId]) ;
 					$car_unavailability[$i+1][$carId]['number_days'] += $days;
 					$car_unavailability[$i+1][$carId]['percent_days'] += ceil(($days * 100)/$number_days_in_month);
 				}
