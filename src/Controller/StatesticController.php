@@ -65,7 +65,6 @@ class StatesticController extends AbstractController
 
         $allUnavailabilities = $apiHelper->getAllVehiculeUnavailabilityPerMonth($year);
 
-        //dd($allUnavailabilities);
 
         return $this->render('statestic/index.html.twig', [
             'total_location' => $total_location,
@@ -75,6 +74,7 @@ class StatesticController extends AbstractController
             'by_vehicule' => $by_vehicule,
             'all_vehicules' => $all_vehicules,
             'vehiculesActiveCount' => $vehiculesActiveCount,
+            'allUnavailabilities' => $allUnavailabilities,
             'vehiculeVenduCount' => count($vehiculesVendus),
         ]);
     }
