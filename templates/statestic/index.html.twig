@@ -166,6 +166,38 @@
         {% endfor %}
     </tbody>
 </table>
-
-
+<div class="card mt-4">
+    <div class="card-header">
+        <h1 class="card-title">Taux d'occupation</h1>
+    </div>
+</div>
+    <table class="table table-striped table-bordered" >
+        <thead>
+            <th></th>
+            <th class="info">January</th>
+            <th class="info">February</th>
+            <th class="info">March</th>
+            <th class="info">April</th>
+            <th class="info">Mai</th>
+            <th class="info">June</th>
+            <th class="info">July</th>
+            <th class="info">August</th>
+            <th class="info">September</th>
+            <th class="info">October</th>
+            <th class="info">November</th>
+            <th class="info">December</th>
+        </thead>
+        <tbody>
+            {% for vehicule in vehiculesFinal %}
+               <tr>
+               <td> {{vehicule.vehicule}}</td>
+               {% for i in [0,1,2,3,4,5,6,7,8,9,10,11] %}
+               <td> {{vehicule.number_days[i]}}j <br> {{vehicule.percent_days[i]}}%</td>                   
+               {% endfor %}
+               </tr>
+                
+            {% endfor %}
+        
+        </tbody>
+    </table>
 {% endblock %}

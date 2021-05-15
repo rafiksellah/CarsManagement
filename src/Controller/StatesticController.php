@@ -62,10 +62,23 @@ class StatesticController extends AbstractController
             $total_achat += $vehiculesAchete->getPrix();
         }
         $all_vehicules = $vehiculeRepository->findAll();
-
+        $vehiculesFinal=[];
         $allUnavailabilities = $apiHelper->getAllVehiculeUnavailabilityPerMonth($year);
+        $tousVehicules = $allUnavailabilities;
+        foreach($tousVehicules as $k => $v){
+            foreach($tousVehicules[$k] as $id_vehicule => $tousVehicule){
+               
+                if (!array_key_exists($id_vehicule, $vehiculesFinal)){
+                    $vehiculesFinal[$id_vehicule] = ["vehicule" => $tousVehicule["vehicule"],
+                                    "number_days" => [0,0,0,0,0,0,0,0,0,0,0,0],
+                                    "percent_days" => [0,0,0,0,0,0,0,0,0,0,0,0]];
+                }
+                $vehiculesFinal[$id_vehicule]["number_days"][$k - 1] = $tousVehicule["number_days"];
+                $vehiculesFinal[$id_vehicule]["percent_days"][$k - 1] = $tousVehicule["percent_days"]; 
 
-
+            }
+        }
+        
         return $this->render('statestic/index.html.twig', [
             'total_location' => $total_location,
             'total_depense' => $total_depense,
@@ -74,7 +87,7 @@ class StatesticController extends AbstractController
             'by_vehicule' => $by_vehicule,
             'all_vehicules' => $all_vehicules,
             'vehiculesActiveCount' => $vehiculesActiveCount,
-            'allUnavailabilities' => $allUnavailabilities,
+            'vehiculesFinal' => $vehiculesFinal,
             'vehiculeVenduCount' => count($vehiculesVendus),
         ]);
     }

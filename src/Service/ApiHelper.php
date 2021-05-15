@@ -130,7 +130,6 @@ class ApiHelper
 
 	public function getAllVehiculeUnavailabilityPerMonth($year){
 		$months = ['January','February','March','april','May','June','July ','August','September','October','November','December'];
-		$car_unavailability=[];
         for ($i=0; $i <count($months) ; $i++) {
             $from=new \DateTime('first day of '.$months[$i].' '.$year);
             $to = new \DateTime('last day of '. $months[$i].' '.$year.' midnight');
@@ -156,11 +155,13 @@ class ApiHelper
 					$days -= $days_after;
 				}
 				if ($days >= $number_days_in_month) {
-					$car_unavailability[$i+1][$carId]['vehicule'] = $this->vehiculeRepository->findOneBy(['idVehiculeGetaround' => $carId]) ;
+					$vehicule = $this->vehiculeRepository->findOneBy(['idVehiculeGetaround' => $carId]);
+					$car_unavailability[$i+1][$carId]['vehicule']  = $vehicule ? $vehicule->getMark().' '.$vehicule->getImmatriculation() : '';
 					$car_unavailability[$i+1][$carId]['number_days'] = $number_days_in_month;
 					$car_unavailability[$i+1][$carId]['percent_days'] = 100;
 				}else{
-					$car_unavailability[$i+1][$carId]['vehicule'] = $this->vehiculeRepository->findOneBy(['idVehiculeGetaround' => $carId]) ;
+					$vehicule = $this->vehiculeRepository->findOneBy(['idVehiculeGetaround' => $carId]);
+					$car_unavailability[$i+1][$carId]['vehicule'] = $vehicule ? $vehicule->getMark().' '.$vehicule->getImmatriculation() : '';
 					$car_unavailability[$i+1][$carId]['number_days'] += $days;
 					$car_unavailability[$i+1][$carId]['percent_days'] += ceil(($days * 100)/$number_days_in_month);
 				}
