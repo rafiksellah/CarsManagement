@@ -103,20 +103,18 @@
 
   <table class="table table-striped table-bordered">
     <thead class="thead-dark">
-      <th>Titre</th>
+      <th>Véhicules</th>
       <th>Achat</th>
       <th>Ventes</th>
       <th>Dépenses</th>
       <th>Locations</th>
-      <th>Revient</th>
+      <th>Bénéfices</th>
       <th>Vendu</th>
     </thead>
     <tbody>
       {% for vehicule in all_vehicules %}
         <tr>
-          <td>{{vehicule.mark}}
-            -
-            {{vehicule.model}}</td>
+          <td><a href="{{path('vehicule_show', {id:vehicule.id})}} ">{{vehicule.mark}} - {{vehicule.model}} - {{vehicule.immatriculation}}</a></td>
           <td>
             {% if by_vehicule[vehicule.id]['prix_achat'] is defined %}
               {{by_vehicule[vehicule.id]['prix_achat']}}€

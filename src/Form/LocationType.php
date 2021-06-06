@@ -3,11 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Location;
-use App\Entity\Vehicule;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class LocationType extends AbstractType
 {
@@ -32,8 +32,12 @@ class LocationType extends AbstractType
                 'Bastia' => 'Bastia',
                 ],
             ])
-            ->add('dateDebut')
-            ->add('dateFin')
+            ->add('dateDebut', DateType::class, [
+                'widget' => 'single_text',
+            ])
+            ->add('dateFin', DateType::class, [
+                'widget' => 'single_text',
+            ])
             ->add('remarque')
             ->add('prix')
             ->add('idLocationGetaround')

@@ -4,13 +4,11 @@ namespace App\Form;
 
 use App\Entity\Vehicule;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Validator\Constraints\Choice;
+
 
 class VehiculeType extends AbstractType
 {   
@@ -31,6 +29,7 @@ class VehiculeType extends AbstractType
             ->add('model', null, ['label'=> ' Modèle'])
             ->add('immatriculation', null, ['label'=> ' Immatriculation'])
             ->add('dateImmatriculation', DateType::class, [
+                'widget' => 'single_text',
                 'years' => range(1990, date('Y'))
             ])
             ->add('nombrePlace', ChoiceType::class, [
@@ -61,10 +60,12 @@ class VehiculeType extends AbstractType
             ->add('couleur')
             ->add('dataAchat', DateType::class, [
                 'label'=> 'Date d’achat',
+                'widget' => 'single_text',
                 'years' => range(1990, date('Y'))
             ])
             ->add('dateVente', DateType::class, [
                 'label'=> 'Date de vente',
+                'widget' => 'single_text',
                 'years' => range(1990, date('Y'))
             ])
             ->add('kilometrageAchat')

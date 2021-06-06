@@ -54,7 +54,7 @@ class StatesticController extends AbstractController
             $total_depense += $depense->getPrix();
         }
         foreach ($vehiculesVendus as $vehiculesVendu) {
-            $by_vehicule[$vehiculesVendu->getId()]['prix_vente'] = $vehiculesVendu->getPrix(); 
+            $by_vehicule[$vehiculesVendu->getId()]['prix_vente'] = $vehiculesVendu->getPrixVente(); 
             $total_vente += $vehiculesVendu->getPrixVente();
         }
         foreach ($vehiculesAchetes as $vehiculesAchete) {
