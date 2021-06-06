@@ -23,7 +23,7 @@ class VehiculeController extends AbstractController
     public function index(VehiculeRepository $vehiculeRepository, Request $request): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $apiHelper = new ApiHelper();
+        $apiHelper = new ApiHelper($vehiculeRepository);
         $unavailable_cars = $apiHelper->getVehiculeUnavailability();
         $filer_city = '';
         $vehicules = $vehiculeRepository->findAll();

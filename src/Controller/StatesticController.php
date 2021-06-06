@@ -62,6 +62,7 @@ class StatesticController extends AbstractController
             $total_achat += $vehiculesAchete->getPrix();
         }
         $all_vehicules = $vehiculeRepository->findAll();
+        /*
         $vehiculesFinal=[];
         $allUnavailabilities = $apiHelper->getAllVehiculeUnavailabilityPerMonth($year);
         $tousVehicules = $allUnavailabilities;
@@ -78,6 +79,7 @@ class StatesticController extends AbstractController
 
             }
         }
+        */
         
         return $this->render('statestic/index.html.twig', [
             'total_location' => $total_location,
@@ -87,7 +89,7 @@ class StatesticController extends AbstractController
             'by_vehicule' => $by_vehicule,
             'all_vehicules' => $all_vehicules,
             'vehiculesActiveCount' => $vehiculesActiveCount,
-            'vehiculesFinal' => $vehiculesFinal,
+            //'vehiculesFinal' => $vehiculesFinal,
             'vehiculeVenduCount' => count($vehiculesVendus),
         ]);
     }
