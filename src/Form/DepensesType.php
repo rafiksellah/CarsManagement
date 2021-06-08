@@ -34,6 +34,7 @@ class DepensesType extends AbstractType
                 'Réparation' => 'Réparation',
                 'Parking' => 'Parking',
                 'Carburant' => 'Carburant',   
+                'Carsitting' => 'Carsitting',   
                 ],
             ])
             ->add('prix')

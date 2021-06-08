@@ -64,6 +64,7 @@ class VehiculeType extends AbstractType
                 'years' => range(1990, date('Y'))
             ])
             ->add('dateVente', DateType::class, [
+                'required'=> false,
                 'label'=> 'Date de vente',
                 'widget' => 'single_text',
                 'years' => range(1990, date('Y'))
@@ -85,8 +86,8 @@ class VehiculeType extends AbstractType
                 'multiple'  => true,
                 'mapped'  => true,
             ])
-            ->add('idVehiculeGetaround', null, ['label'=>'ID Getaround'])
-            ->add('prixVente', null, ['label'=>'Prix de vente'])
+            ->add('idVehiculeGetaround', null, ['label'=>'ID Getaround','required' => false])
+            ->add('prixVente', null, ['label'=>'Prix de vente','required' => false ])
            ;
     }
 

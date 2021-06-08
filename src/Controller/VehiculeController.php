@@ -67,6 +67,20 @@ class VehiculeController extends AbstractController
         return $this->redirectToRoute('vehicule_index');
     }
 
+    /**
+     * @Route("/vehicule_cancel_sale/{id}", name="vehicule_cancel_sale")
+     */
+    public function vehicule_cancel_sale(Request $request, VehiculeRepository $vehiculeRepository, $id): Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $vehicule = $vehiculeRepository->find($id);
+        $vehicule->setStatus(0);
+        $vehicule->setPrixVente(0.00);
+        $vehicule->setDateVente(null);
+        $entityManager->flush();
+        return $this->redirectToRoute('vehicule_index');
+    }
+
 
     // /**
     //  * @Route("/refresh", name="refresh_avail_vehicule")
