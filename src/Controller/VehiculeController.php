@@ -49,6 +49,18 @@ class VehiculeController extends AbstractController
             'filer_city' => $filer_city,
         ]);
     }
+    /**
+     * @Route("/vehiculeVendu", name="vehiculeVendu", methods={"GET"})
+     */
+    public function vehiculeVendu(VehiculeRepository $vehiculeRepository, Request $request): Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $apiHelper = new ApiHelper($vehiculeRepository);
+        $vehicules = $vehiculeRepository->findBy(['status' => '2']);
+        return $this->render('vehicule/vehiculeVendu.html.twig', [
+            'vehicules' => $vehicules,
+        ]);
+    }
 
     /**
      * @Route("/sellvehicule", name="sellvehicule")

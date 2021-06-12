@@ -88,6 +88,7 @@ class DashboardController extends AbstractController
         $total_depenses = array_sum($total_depenses_per_year);
         $total_locations = array_sum($total_locations_per_year);
         $total_chiffre_affaire = array_sum($total_chiffre_affaire_per_year);
+        $total_benifice=$total_chiffre_affaire-$total_depenses;
 
         $original_value = 1;
         if ($total_depenses_per_year[$last_year->format('Y')] != 0 ) {
@@ -106,6 +107,11 @@ class DashboardController extends AbstractController
             $original_value = $total_chiffre_affaire_per_year[$last_year->format('Y')];
         }
         $percentage_increase_chiffre_affaire = (($total_chiffre_affaire_per_year[$current_year->format('Y')] - $original_value)/$original_value)*100;
+        $original_value = 1;
+        if ($total_benifice[$last_year->format('Y')] != 0 ) {
+            $original_value = $total_benifice[$last_year->format('Y')];
+        }
+        $percentage_total_benifice = (($total_benifice[$current_year->format('Y')] - $original_value)/$original_value)*100;
 
         $locations = $locationRepository->findLocationsByInterval($first_day_of_month,$lastt_day_of_month);
         foreach ($locations as $location) {
@@ -153,11 +159,13 @@ class DashboardController extends AbstractController
             'total_locations' => $total_locations,
             'percentage_increase_depense' => $percentage_increase_depense,
             'percentage_increase_location' => $percentage_increase_location,
+            'percentage_total_benifice'=>$percentage_total_benifice,
             'percentage_increase_chiffre_affaire' => $percentage_increase_chiffre_affaire,
             'depenses_per_park' => $depenses_per_park,
             'chiffre_affaire_per_park' => $chiffre_affaire_per_park,
             'benifice_per_park' => $benifice_per_park,
             'park_color' => $park_color,
+            'total_benifice'=>$total_benifice
 
         ]); 
     }
