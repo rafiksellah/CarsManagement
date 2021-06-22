@@ -23,7 +23,7 @@
                 {% for depense in depenses %}
                     <tr>
                         <td>{{ depense.id }}</td>
-                        <td>{{ depense.date ? depense.date|date('d/m/Y') : '' }}</td>
+                        <td><span style="display: none;">{{ depense.date ? depense.date|date('Y-m-d') : '' }}</span>{{ depense.date ? depense.date|date('d/m/Y') : '' }}</td>
                         <td><a href="{{ path('depenses_edit', {'id': depense.id}) }}">{{ depense.natureLibelle }}</a></td>
                         <td>{{ depense.prix }} €</td>
                         <td>
@@ -59,7 +59,7 @@
     $('#dataTableDepenses').DataTable({
         scrollY:        '100vh',
         scrollCollapse: true,
-        "order": [[ 1, "asc" ]]
+        "order": [[ 1, "desc" ]]
     });
 </script>
 {% endblock %}
