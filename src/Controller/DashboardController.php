@@ -69,8 +69,8 @@ class DashboardController extends AbstractController
                     $total_depenses_per_year[$year] += $depense->getPrix();
                 }
                 foreach ($vehiculeVendus as $vehiculeVendu) {
-                    $chiffre_affaire[$year][$month] += ($vehiculeVendu->getPrixVente() - $vehiculeVendu->getPrix());
-                    $chiffre_affaire_per_park[$vehiculeVendu->getParcStationnementVille()][$year][$month] +=  ($vehiculeVendu->getPrixVente() - $vehiculeVendu->getPrix());
+                    $chiffre_affaire[$year][$month] += $vehiculeVendu->getPrixVente();
+                    $chiffre_affaire_per_park[$vehiculeVendu->getParcStationnementVille()][$year][$month] +=  $vehiculeVendu->getPrixVente();
                 }
             }
             $chiffre_affaire_json[$year] = json_encode(array_values($chiffre_affaire[$year]));

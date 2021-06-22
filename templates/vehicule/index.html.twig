@@ -6,7 +6,7 @@
     <br>
 <b>Filtrer : </b><a href="{{ path('vehicule_index') }}" class="btn btn-{% if filer_city == '' %}primary{% else %}light{% endif %}">Tous les véhicule</a> <a href="{{ path('vehicule_index') }}?city=Marseille" class="btn btn-{% if filer_city == 'Marseille' %}primary {% else %}light {% endif %}">Marseille</a> <a href="{{ path('vehicule_index') }}?city=Bastia" class="btn btn-{% if filer_city == 'Bastia' %}primary {% else %}light {% endif %} ">Bastia</a><br>
 <a class="btn btn-success mt-4 mb-3"  href="{{ path('vehicule_new') }}"><i class="fa fa-plus"></i> Ajouter un Vehicule</a>
-<a class="btn btn-primary mt-4 mb-3"  href="{{ path('vehiculeVendu') }}"><i class="fas fa-bars"></i> Vehicules Vendus</a>
+{# <a class="btn btn-primary mt-4 mb-3"  href="{{ path('vehiculeVendu') }}"><i class="fas fa-bars"></i> Vehicules Vendus</a> #}
 {# <a class="btn btn-success mt-4 mb-3"  href="{{ path('refresh_avail_vehicule') }}"><i class="fas fa-sync"></i> Actualiser Getaround</a> #}
 <div class="container-fluid">
     <div class="card">
