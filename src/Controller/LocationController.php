@@ -56,7 +56,7 @@ class LocationController extends AbstractController
 
         $month = $request->query->get('month');
         if ($month) {
-            $apiHelper = new ApiHelper();
+            $apiHelper = new ApiHelper($vehiculeRepository);
             $locations_api = $apiHelper->getLocations($month);
             foreach ($locations_api as $key => $location) {
                 $existed_location = $locationRepository->findOneBy(['idLocationGetaround' => $location['id']]);
