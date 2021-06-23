@@ -49,8 +49,6 @@ class ApiHelper
 		if ($invoices['links']['next'] != NULL ) {
 			$new_invoices = $this->apiConnexion($invoices['links']['next']);
 			$this->getInvoiceIds($new_invoices);
-		}else{
-			return $this->invoice_ids;
 		}
     }
 
@@ -99,7 +97,9 @@ class ApiHelper
 	        $url = "https://api-eu.getaround.com/api/partners/v1/invoices?end_date=".$to."&start_date=".$from;
 			$invoices = $this->apiConnexion($url);
 			if (isset($invoices['data'])) {
-				$invoice_ids = $this->getInvoiceIds($invoices);
+				$this->getInvoiceIds($invoices);
+				$invoice_ids = $this->invoice_ids;
+				
 				if (!empty($invoice_ids)) {
 					$invoices_with_details = $this->getInvoiceDetails($invoice_ids);
 				}
